@@ -6,9 +6,11 @@ import "./base/HDealer.sol";
 contract HDealerFactory{
         event DealerMinted(address tokenAddress);
 
-        function deployNewDealer(address token) 
+        mapping(address=>bool) public dealers;
+        function deployNewDealer() 
                 public returns (address){
                 HDealer d = new HDealer();
+                dealers[address(d)]=true;
                 emit DealerMinted(address(d));
         }
 }
