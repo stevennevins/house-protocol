@@ -1,8 +1,8 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
-import "./base/IERC20.sol";
-import "./base/HTokenBase.sol";
+import "./IERC20.sol";
+import "./HTokenBase.sol";
 
 contract HPool is HTokenBase, IERC20{
         //General
