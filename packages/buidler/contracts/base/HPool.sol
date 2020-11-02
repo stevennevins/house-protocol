@@ -4,7 +4,7 @@ import "./HToken.sol";
 import "./HMath.sol";
 import "./IHDealerFactory.sol";
 
-contract HPool is HToken, HMath, IHDealerFactory{
+contract HPool is HToken, HMath{
         address private _poolFactory;
         address private _token;
         address private _dealerFactory;

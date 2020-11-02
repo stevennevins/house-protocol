@@ -10,8 +10,13 @@ contract HPoolFactory{
         function deployNewPool(address token) 
                 public returns (address){
                         require(getPool[token] == address(0), "Pool exists");
+                        require(_dealerFactory!=address(0),"Not linked to dealers");
                         HPool p = new HPool(token, _dealerFactory);
                         getPool[token]=address(p);
                         emit PoolMinted(address(p));
+        }
+
+        function setFactory(address dealerFactory) external{
+                _dealerFactory=dealerFactory;
         }
 }

@@ -4,7 +4,7 @@ import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 import "./HMath.sol";
 import "./IHPoolFactory.sol";
 
-contract HDealer is VRFConsumerBase, HMath, IHPoolFactory{
+contract HDealer is VRFConsumerBase, HMath{
     bytes32 internal keyHash;
     uint256 internal fee;
     
