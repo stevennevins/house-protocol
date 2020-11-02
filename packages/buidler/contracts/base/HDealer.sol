@@ -2,14 +2,15 @@ pragma solidity >=0.6.0 <0.7.0;
 
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 import "./HMath.sol";
+import "./IHPoolFactory.sol";
 
-contract HDealer is VRFConsumerBase, HMath{
+contract HDealer is VRFConsumerBase, HMath, IHPoolFactory{
     bytes32 internal keyHash;
     uint256 internal fee;
     
     uint256 public randomResult;
-    address private _factory;
-    
+    address private _dealerFactory;
+    address private _poolFactory; 
     /**
      * Constructor inherits VRFConsumerBase
      * 
@@ -18,7 +19,7 @@ contract HDealer is VRFConsumerBase, HMath{
      * LINK token address:                0xa36085F69e2889c224210F603D836748e7dC0088
      * Key Hash: 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4
      */
-    constructor() 
+    constructor(address poolFactory) 
         VRFConsumerBase(
             0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9, // VRF Coordinator
             0xa36085F69e2889c224210F603D836748e7dC0088  // LINK Token
@@ -26,7 +27,8 @@ contract HDealer is VRFConsumerBase, HMath{
     {
         keyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
         fee = 0.1 * 10 ** 18; // 0.1 LINK
-        _factory = msg.sender;
+        _dealerFactory = msg.sender;
+        _poolFactory = poolFactory;
     }
     
     /** 
