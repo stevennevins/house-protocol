@@ -5,9 +5,9 @@ import "./base/HPool.sol";
 contract HPoolFactory{
         event PoolMinted(address tokenAddress);
 
-        function deployNewPool() 
+        function deployNewPool(address token) 
                 public returns (address){
-                HPool p = new HPool();
+                HPool p = new HPool(token);
                 emit PoolMinted(address(p));
         }
 }

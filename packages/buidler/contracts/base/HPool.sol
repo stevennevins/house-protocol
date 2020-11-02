@@ -7,8 +7,9 @@ contract HPool is HToken, HMath{
         address private _factory;
         address private _token;
 
-        constructor() public{
+        constructor(address token) public{
                 _factory = msg.sender;
+                _token = token;
         }
 
 }
