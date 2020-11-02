@@ -1,6 +1,5 @@
 pragma solidity >=0.6.0 <0.7.0;
 
-import "@nomiclabs/buidler/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract YourContract {
@@ -11,7 +10,6 @@ contract YourContract {
 
   function setPurpose(string memory newPurpose) public {
     purpose = newPurpose;
-    console.log(msg.sender,"set purpose to",purpose);
     emit SetPurpose(msg.sender, purpose);
   }
 

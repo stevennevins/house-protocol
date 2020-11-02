@@ -1,8 +1,6 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@nomiclabs/buidler/console.sol";
-import "./HPool.sol";
 
 contract HPoolFactory{
         address public fee;
