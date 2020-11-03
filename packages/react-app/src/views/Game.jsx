@@ -3,7 +3,7 @@ import { formatEther } from "@ethersproject/units";
 import { Address, AddressInput } from "../components";
 
 
-export default function Hints({yourLocalBalance, mainnetProvider, price, address }) {
+export default function Game({yourLocalBalance, mainnetProvider, price, address }) {
 
   return (
     <div>

@@ -13,7 +13,7 @@ import { Header, Account, Faucet, Ramp, Contract, GasGauge, Address } from "./co
 import { Transactor } from "./helpers";
 import { parseEther, formatEther } from "@ethersproject/units";
 //import Hints from "./Hints";
-import { Hints, ExampleUI } from "./views"
+import { LP, Game } from "./views"
 /*
     Welcome to 🏗 scaffold-eth !
 
@@ -113,6 +113,12 @@ function App() {
           <Menu.Item key="/">
             <Link onClick={()=>{setRoute("/")}} to="/">YourContract</Link>
           </Menu.Item>
+          <Menu.Item key="/LP">
+            <Link onClick={()=>{setRoute("/LP")}} to="/LP">LP Page</Link>
+          </Menu.Item>
+         <Menu.Item key="/Game">
+            <Link onClick={()=>{setRoute("/Game")}} to="/Game">Game</Link>
+          </Menu.Item>
         </Menu>
 
         <Switch>
@@ -137,6 +143,32 @@ function App() {
               blockExplorer={blockExplorer}
             />
          </Route>
+         <Route path="/LP">
+            <LP
+              address={address}
+              userProvider={userProvider}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              price={price}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+             />
+          </Route>
+          <Route path="/Game">
+            <Game
+              address={address}
+              userProvider={userProvider}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              price={price}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+            />
+          </Route>
         </Switch>
       </BrowserRouter>
 
