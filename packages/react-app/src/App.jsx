@@ -128,14 +128,21 @@ function App() {
                 this <Contract/> component will automatically parse your ABI
                 and give you a form to interact with it locally
             */}
-            <Contract
-              name="YourContract"
+             <Contract
+              name="HPoolFactory"
               signer={userProvider.getSigner()}
               provider={localProvider}
               address={address}
               blockExplorer={blockExplorer}
             />
-          </Route>
+              <Contract
+              name="HDealerFactory"
+              signer={userProvider.getSigner()}
+              provider={localProvider}
+              address={address}
+              blockExplorer={blockExplorer}
+            />
+         </Route>
           <Route path="/hints">
             <Hints
               address={address}

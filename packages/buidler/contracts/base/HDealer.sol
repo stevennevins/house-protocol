@@ -11,6 +11,7 @@ contract HDealer is VRFConsumerBase, HMath{
     uint256 public randomResult;
     address private _dealerFactory;
     address private _poolFactory; 
+    address private _feeOwner;
     /**
      * Constructor inherits VRFConsumerBase
      * 
@@ -19,7 +20,7 @@ contract HDealer is VRFConsumerBase, HMath{
      * LINK token address:                0xa36085F69e2889c224210F603D836748e7dC0088
      * Key Hash: 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4
      */
-    constructor(address poolFactory) 
+    constructor(address poolFactory, address feeOwner) 
         VRFConsumerBase(
             0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9, // VRF Coordinator
             0xa36085F69e2889c224210F603D836748e7dC0088  // LINK Token
@@ -29,6 +30,7 @@ contract HDealer is VRFConsumerBase, HMath{
         fee = 0.1 * 10 ** 18; // 0.1 LINK
         _dealerFactory = msg.sender;
         _poolFactory = poolFactory;
+        _feeOwner = feeOwner;
     }
     
     /** 

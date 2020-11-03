@@ -5,7 +5,7 @@ import "./base/HPool.sol";
 contract HPoolFactory{
         mapping(address=>address) public getPool;
         event PoolMinted(address tokenAddress);
-        address private _dealerFactory;
+        address public _dealerFactory;
 
         function deployNewPool(address token) 
                 public returns (address){
@@ -18,5 +18,9 @@ contract HPoolFactory{
 
         function setFactory(address dealerFactory) external{
                 _dealerFactory=dealerFactory;
+        }
+
+        function getFactory() external view returns (address dealerFactory){
+                return _dealerFactory;
         }
 }

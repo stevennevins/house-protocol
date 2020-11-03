@@ -18,7 +18,7 @@ const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 //
 // Select the network you want to deploy to here:
 //
-const defaultNetwork = "localhost";
+const defaultNetwork = "kovan";
 
 function mnemonic() {
   try {
@@ -46,6 +46,13 @@ module.exports = {
         notice no mnemonic here? it will just use account 0 of the buidler node to deploy
         (you can put in a mnemonic here to set the deployer locally)
       */
+    },
+    kovan: {
+            url:"https://kovan.infura.io/v3/6ed831aea5e4492097496271e02a95f0", 
+            gasPrice:10000000000,
+      accounts: {
+              mnemonic:mnemonic(),
+      },
     },
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/c954231486fa42ccb6d132b406483d14",//<---- YOUR INFURA ID! (or it won't work)

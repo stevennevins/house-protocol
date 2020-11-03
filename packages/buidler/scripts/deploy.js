@@ -10,7 +10,8 @@ async function main() {
 //  await autoDeploy();
   // OR
   // custom deploy (to use deployed addresses dynamically for example:)
-  const deployToken = await deploy("HPoolFactory")
+  const deployPool = await deploy("HPoolFactory");
+  const deployDealer = await deploy("HDealerFactory");
   // const examplePriceOracle = await deploy("ExamplePriceOracle")
   // const smartContractWallet = await deploy("SmartContractWallet",[exampleToken.address,examplePriceOracle.address])
 }
