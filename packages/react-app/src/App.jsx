@@ -111,7 +111,7 @@ function App() {
 
         <Menu style={{ textAlign:"center" }} selectedKeys={[route]} mode="horizontal">
           <Menu.Item key="/">
-            <Link onClick={()=>{setRoute("/")}} to="/">YourContract</Link>
+            <Link onClick={()=>{setRoute("/")}} to="/">Factory Page</Link>
           </Menu.Item>
           <Menu.Item key="/LP">
             <Link onClick={()=>{setRoute("/LP")}} to="/LP">LP Page</Link>
