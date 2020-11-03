@@ -36,10 +36,11 @@ yarn deploy
 
 ```
 > Please change infura API keys eventually and don't use all my calls
+```
 🔏 Edit your smart contracts in `packages/buidler/contracts`
 
 📝 Edit your frontend `App.jsx` in `packages/react-app/src`
 
 📱 Open http://localhost:3000 to see the app
-
+```
 > You will also need kovan ETH and can get from a faucet with a github OAuth
