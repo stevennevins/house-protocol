@@ -43,7 +43,7 @@ const mainnetProvider = new JsonRpcProvider("https://mainnet.infura.io/v3/"+INFU
 // ( ⚠️ Getting "failed to meet quorum" errors? Check your INFURA_ID)
 
 // 🏠 Your local provider is usually pointed at your local blockchain
-const localProviderUrl = "http://localhost:8545"; // for xdai: https://dai.poa.network
+const localProviderUrl = "https://kovan.infura.io/v3/"+INFURA_ID; // for xdai: https://dai.poa.network
 // as you deploy to other networks you can set REACT_APP_PROVIDER=https://dai.poa.network in packages/react-app/.env
 const localProviderUrlFromEnv = process.env.REACT_APP_PROVIDER ? process.env.REACT_APP_PROVIDER : localProviderUrl;
 if(DEBUG) console.log("🏠 Connecting to provider:", localProviderUrlFromEnv);
