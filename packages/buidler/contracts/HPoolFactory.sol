@@ -1,6 +1,6 @@
 pragma solidity >=0.6.0 <0.7.0;
 
-import "./base/HPool.sol";
+import "./HPool.sol";
 
 contract HPoolFactory{
         mapping(address=>address) public getPool;

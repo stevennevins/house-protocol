@@ -1,7 +1,7 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 
-import "./base/HDealer.sol";
+import "./HDealer.sol";
 
 contract HDealerFactory{
         event DealerMinted(address tokenAddress);

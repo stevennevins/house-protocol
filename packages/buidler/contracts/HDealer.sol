@@ -1,8 +1,8 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
-import "./HMath.sol";
-import "./IHPoolFactory.sol";
+import "./base/HMath.sol";
+import "./base/IHPoolFactory.sol";
 
 contract HDealer is VRFConsumerBase, HMath{
     bytes32 internal keyHash;

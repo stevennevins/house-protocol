@@ -1,8 +1,8 @@
 pragma solidity >=0.6.0 <0.7.0;
 
-import "./HToken.sol";
-import "./HMath.sol";
-import "./IHDealerFactory.sol";
+import "./base/HToken.sol";
+import "./base/HMath.sol";
+import "./base/IHDealerFactory.sol";
 
 contract HPool is HToken, HMath{
         address private _poolFactory;
