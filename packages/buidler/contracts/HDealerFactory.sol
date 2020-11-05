@@ -6,7 +6,7 @@ import "./base/HDealer.sol";
 contract HDealerFactory{
         event DealerMinted(address tokenAddress);
         event UpdatePoolFactory(address poolFactory);
-        address public _poolFactory;
+        address private _poolFactory;
 
         mapping(address=>bool) private dealers;
         function deployNewDealer() 
@@ -22,7 +22,11 @@ contract HDealerFactory{
                 emit UpdatePoolFactory(_poolFactory);
         }
 
-        function getFactory() external view returns (address poolFactory){
+        function getFactory() external view returns (address){
                 return _poolFactory;
+        }
+
+        function isDealer(address dealer) external view returns (bool){
+                return dealers[dealer];
         }
 }

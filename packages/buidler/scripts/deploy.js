@@ -12,6 +12,7 @@ async function main() {
   // custom deploy (to use deployed addresses dynamically for example:)
   const deployPool = await deploy("HPoolFactory");
   const deployDealer = await deploy("HDealerFactory");
+  const deployGame = await deploy("HDealer",['0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8','0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8']);
   // const examplePriceOracle = await deploy("ExamplePriceOracle")
   // const smartContractWallet = await deploy("SmartContractWallet",[exampleToken.address,examplePriceOracle.address])
 }
@@ -43,7 +44,7 @@ const isSolidity = (fileName) =>
 function readArgumentsFile(contractName) {
   let args = [];
   try {
-    const argsFile = `./contracts/${contractName}.args`;
+    const argsFile = `./contracts/base/${contractName}.args`;
     if (fs.existsSync(argsFile)) {
       args = JSON.parse(fs.readFileSync(argsFile));
     }
