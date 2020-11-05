@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button, List, Divider, Input, Card, DatePicker, Slider, Switch, Progress, Spin, Select} from "antd";
 import { SyncOutlined } from '@ant-design/icons';
-import { Address, AddressInput, Balance } from "../components";
-import { useContractReader, useEventListener, useResolveName } from "../hooks";
+import { Address, AddressInput, Balance, CustomContract} from "../components";
+import { useContractReader, useEventListener, useResolveName, useCustomContractLoader } from "../hooks";
 import { parseEther, formatEther } from "@ethersproject/units";
 
 export default function Game({address, mainnetProvider, userProvider, localProvider, yourLocalBalance, price, tx, readContracts, writeContracts }) {
@@ -10,8 +10,8 @@ export default function Game({address, mainnetProvider, userProvider, localProvi
   //📟 Listen for broadcast events
   const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
   console.log("📟 Dealer Minted:",dealerMinted)
-
-        const { Option } = Select;
+ 
+  const { Option } = Select;
 
 function onChange(value) {
   console.log(`selected ${value}`);
@@ -32,6 +32,7 @@ function onSearch(val) {
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
   console.log("🏷 Resolved austingriffith.eth as:",addressFromENS)
   */
+const blockExplorer = "https://etherscan.io/"
 
   return (
     <div>
@@ -56,12 +57,16 @@ function onSearch(val) {
       {/*
         ⚙️ Here is an example UI that displays and sets the purpose in your smart contract:
       */}
-      <div style={{border:"1px solid #cccccc", padding:16, width:400, margin:"auto",marginTop:64}}>
-        <h2>Games:</h2>
+<CustomContract
+              name="HDealer"
+              p_address ="0x1cB0476fb5D1b965B564AE4fd91Cac4826767CAF" 
+              signer={userProvider.getSigner()}
+              provider={localProvider}
+              address={address}
+              blockExplorer={blockExplorer}
+            />
 
         <Divider/>
-      </div>
-
       <div style={{ width:600, margin: "auto", marginTop:32, paddingBottom:32 }}>
         <h2>Events:</h2>
         <List
