@@ -38,6 +38,7 @@ export default function CustomContract({ account, p_address, gasPrice, signer, p
   const contracts = useContractLoader(provider);
   const contract = contracts ? contracts[name] : "";
   const address = p_address;
+        
   const contractIsDeployed = useContractExistsAtAddress(provider, address);
 
   const displayedContractFunctions = useMemo(

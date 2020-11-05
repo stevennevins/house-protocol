@@ -62,7 +62,6 @@ const blockExplorer = "https://etherscan.io/"
               p_address ="0x1cB0476fb5D1b965B564AE4fd91Cac4826767CAF" 
               signer={userProvider.getSigner()}
               provider={localProvider}
-              address={address}
               blockExplorer={blockExplorer}
             />
 
