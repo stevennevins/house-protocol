@@ -13,7 +13,7 @@ import { Header, Account, Faucet, Ramp, Contract, GasGauge, Address } from "./co
 import { Transactor } from "./helpers";
 import { parseEther, formatEther } from "@ethersproject/units";
 //import Hints from "./Hints";
-import { LP, Game } from "./views"
+import { Pool, Game } from "./views"
 /*
     Welcome to 🏗 scaffold-eth !
 
@@ -144,7 +144,7 @@ function App() {
             />
          </Route>
          <Route path="/LP">
-            <LP
+            <Pool
               address={address}
               userProvider={userProvider}
               mainnetProvider={mainnetProvider}
