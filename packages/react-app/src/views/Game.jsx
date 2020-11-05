@@ -39,7 +39,7 @@ function onSearch(val) {
             <Select
             showSearch
           style={{ width: 200 }}
-         placeholder="Select a person"
+         placeholder="Select a Game Contract"
          optionFilterProp="children"
          onChange={onChange}
          onFocus={onFocus}
