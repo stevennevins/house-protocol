@@ -10,11 +10,12 @@ export default function Game({address, mainnetProvider, userProvider, localProvi
   //📟 Listen for broadcast events
   const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
   console.log("📟 Dealer Minted:",dealerMinted)
- 
   const { Option } = Select;
-
+  const [selected, setSelected] = useState(0);
+ 
 function onChange(value) {
-  console.log(`selected ${value}`);
+        console.log(value);
+        setSelected(value);
 }
 
 function onBlur() {
@@ -51,7 +52,7 @@ const blockExplorer = "https://etherscan.io/"
                 }
             >
                     {dealerMinted.map(item=>(
-                            <Option key={item.blockNumber+"_"+item.sender}>{item[0]}</Option>
+                            <Option key={item[0]}>{item[0]}</Option>
                     ))}
   </Select>
       {/*
@@ -59,7 +60,7 @@ const blockExplorer = "https://etherscan.io/"
       */}
 <CustomContract
               name="HDealer"
-              p_address ="0x1cB0476fb5D1b965B564AE4fd91Cac4826767CAF" 
+        p_address = {selected} 
               signer={userProvider.getSigner()}
               provider={localProvider}
               blockExplorer={blockExplorer}
