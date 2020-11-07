@@ -1,6 +1,5 @@
 pragma solidity >=0.6.0 <0.7.0;
 
-import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./IERC20.sol";
 import "./HTokenBase.sol";
 
@@ -9,7 +8,6 @@ contract HToken is HTokenBase, IERC20{
         string private _name;
         string private _symbol;
         uint8 private _decimals;
-        using SafeMath for uint256;
         
         function name() public view returns(string memory){
 
@@ -43,7 +41,7 @@ contract HToken is HTokenBase, IERC20{
         }
 
         function increaseApproval(address dst, uint amt) external returns (bool){
-                _allowance[msg.sender][dst] = _allowance[msg.sender][dst].add(amt);
+                _allowance[msg.sender][dst] = hadd(_allowance[msg.sender][dst], amt);
                 emit Approval(msg.sender, dst, _allowance[msg.sender][dst]);
                 return true;
         }
@@ -53,7 +51,7 @@ contract HToken is HTokenBase, IERC20{
                 if (amt > oldValue){
                         _allowance[msg.sender][dst]=0;
                 } else {
-                        _allowance[msg.sender][dst] = oldValue.sub(amt);
+                        _allowance[msg.sender][dst] = hsub(oldValue, amt);
                 }
                 emit Approval(msg.sender, dst, _allowance[msg.sender][dst]);
                 return true;
@@ -68,7 +66,7 @@ contract HToken is HTokenBase, IERC20{
                 require(msg.sender == src || amt <= _allowance[src][msg.sender], "ERR_HTOKEN_BAD_CALLER");
                 _move(src, dst, amt);
                 if (msg.sender != src && _allowance[src][msg.sender]!=uint256(-1)){
-                        _allowance[src][msg.sender] = _allowance[src][msg.sender].sub(amt);
+                        _allowance[src][msg.sender] = hsub(_allowance[src][msg.sender], amt);
                         emit Approval(msg.sender, dst, _allowance[src][msg.sender]);
                 }
                 return true;

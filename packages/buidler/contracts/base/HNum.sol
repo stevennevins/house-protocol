@@ -17,6 +17,13 @@ contract HNum is HConst{
                 return htoi(a) * BONE;
         }
 
+        function hmod(uint a, uint b)
+                internal pure
+                returns (uint)
+        {
+                require( b!= 0, 'ERR_DIV_0');
+                return a % b;
+        }
         function hadd(uint a, uint b)
                 internal pure
                 returns (uint)
