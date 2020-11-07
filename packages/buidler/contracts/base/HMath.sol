@@ -3,6 +3,28 @@ pragma solidity >=0.6.0 <0.7.0;
 import "./HNum.sol";
 
 contract HMath is HConst, HNum{
+      function tokenSwap(
+              uint tokenIn,
+              uint tokenBalance,
+              uint hTokenSupply
+      )
+      public pure
+      returns (uint)
+      {
+              return hmul(tokenIn, hdiv(hTokenSupply, tokenBalance));
+            
+      }
+      function hTokenSwap(
+              uint hTokenIn,
+              uint tokenBalance,
+              uint hTokenSupply
+      )
+      public pure
+      returns (uint)
+      {
+              return hmul(hTokenIn, hdiv(tokenBalance, hTokenSupply));
+
+      }
         //functions for calculating bet size and exchanges
 
        /*********************************************

@@ -7,6 +7,7 @@ contract HDealerFactory{
         event DealerMinted(address tokenAddress);
         event UpdatePoolFactory(address poolFactory);
         address private _poolFactory;
+        bool private _finalized=false;
 
         mapping(address=>bool) private dealers;
         function deployNewDealer() 
@@ -17,7 +18,11 @@ contract HDealerFactory{
                 emit DealerMinted(address(d));
         }
 
+        function finalize() external {
+                _finalized=true;
+        }
         function setPoolFactory(address poolFactory) external {
+                require(!_finalized, "ERR_IS_FINALIZED");
                 _poolFactory = poolFactory;
                 emit UpdatePoolFactory(_poolFactory);
         }
