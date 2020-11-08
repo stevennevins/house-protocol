@@ -12,6 +12,29 @@ contract HDealer is VRFConsumerBase, HMath{
     address private _dealerFactory;
     address private _poolFactory; 
     address private _feeOwner;
+    struct game {
+            address sender;
+            uint choice;
+            uint lo;
+            uint hi;
+            uint randomness;
+            bool fulfilled;
+    }
+
+    mapping(bytes32 => game) public games;
+
+    event Request(
+            address sender,
+            bytes32 requestId
+    ); 
+
+    event Result(
+            address sender,
+            bytes32 requestId,
+            uint choice,
+            uint randomness,
+            bool winner
+    );
     /**
      * Constructor inherits VRFConsumerBase
      * 
@@ -33,6 +56,25 @@ contract HDealer is VRFConsumerBase, HMath{
         _feeOwner = feeOwner;
     }
     
+    function roll(uint choice, uint seed, uint lo, uint hi) external {
+            require(LINK.balanceOf(msg.sender) >= fee, "Not enough LINK");
+            require(LINK.allowance(msg.sender, address(this)) >= fee, "Not enough LINK Allowance");
+            require(0 < lo && lo <= choice && choice <= hi, "Invalid choice");
+            LINK.transferFrom(msg.sender, address(this), fee);
+
+            bytes32 requestId = requestRandomness(keyHash, fee, block.number);
+            emit Request(msg.sender, requestId);
+
+            games[requestId] = game(
+                  msg.sender,
+                  choice,
+                  lo,
+                  hi,
+                  0,
+                  false
+            );
+
+    }
     /** 
      * Requests randomness from a user-provided seed
      */
