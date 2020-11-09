@@ -49,7 +49,7 @@ module.exports = {
     },
     kovan: {
             url:"https://kovan.infura.io/v3/6ed831aea5e4492097496271e02a95f0", 
-            gasPrice:100000000000,
+            gasPrice:10000000000,
       accounts: {
               mnemonic:mnemonic(),
       },

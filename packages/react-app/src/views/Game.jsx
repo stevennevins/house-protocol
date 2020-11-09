@@ -60,7 +60,7 @@ const blockExplorer = "https://etherscan.io/"
       */}
 <CustomContract
               name="HDealer"
-        p_address = {selected} 
+              address = {selected} 
               signer={userProvider.getSigner()}
               provider={localProvider}
               blockExplorer={blockExplorer}
@@ -77,10 +77,10 @@ const blockExplorer = "https://etherscan.io/"
               <List.Item key={item.blockNumber+"_"+item.sender}>
                 <Address
                     value={item[0]}
-                    ensProvider={mainnetProvider}
+                    ensProvider={localProvider}
                     fontSize={16}
                   /> =>
-                {item[1]}
+                {item[0]}
               </List.Item>
             )
           }}

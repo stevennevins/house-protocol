@@ -143,12 +143,13 @@ contract HMath is HConst, HNum{
      function maxBet(
              uint bankroll,
              uint edge,
+             uint b,
              uint k
      )
      public pure
      returns (uint)
      {
-             return hmul(hmul( bankroll, edge ), k);
+             return hmul(b, hmul(hmul( bankroll, edge ), k));
      }
 
 

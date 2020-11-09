@@ -34,10 +34,9 @@ const noContractDisplay = (
 
 const isQueryable = fn => (fn.stateMutability === "view" || fn.stateMutability === "pure") && fn.inputs.length === 0;
 
-export default function CustomContract({ account, p_address, gasPrice, signer, provider, name, show, price, blockExplorer }) {
+export default function CustomContract({ account, address, gasPrice, signer, provider, name, show, price, blockExplorer }) {
   const contracts = useContractLoader(provider);
   const contract = contracts ? contracts[name] : "";
-  const address = p_address;
         
   const contractIsDeployed = useContractExistsAtAddress(provider, address);
 

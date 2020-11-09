@@ -3,38 +3,17 @@ pragma solidity >=0.6.0 <0.7.0;
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 import "./base/HMath.sol";
 import "./base/IHPoolFactory.sol";
+import "./base/IERC20.sol";
 
-contract HDealer is VRFConsumerBase, HMath{
+contract HDealer is VRFConsumerBase {
     bytes32 internal keyHash;
     uint256 internal fee;
-    
     uint256 public randomResult;
+    
     address private _dealerFactory;
     address private _poolFactory; 
     address private _feeOwner;
-    struct game {
-            address sender;
-            uint choice;
-            uint lo;
-            uint hi;
-            uint randomness;
-            bool fulfilled;
-    }
-
-    mapping(bytes32 => game) public games;
-
-    event Request(
-            address sender,
-            bytes32 requestId
-    ); 
-
-    event Result(
-            address sender,
-            bytes32 requestId,
-            uint choice,
-            uint randomness,
-            bool winner
-    );
+    mapping (bytes32 => uint) public requestIds;
     /**
      * Constructor inherits VRFConsumerBase
      * 
@@ -55,32 +34,12 @@ contract HDealer is VRFConsumerBase, HMath{
         _poolFactory = poolFactory;
         _feeOwner = feeOwner;
     }
-    
-    function roll(uint choice, uint seed, uint lo, uint hi) external {
-            require(LINK.balanceOf(msg.sender) >= fee, "Not enough LINK");
-            require(LINK.allowance(msg.sender, address(this)) >= fee, "Not enough LINK Allowance");
-            require(0 < lo && lo <= choice && choice <= hi, "Invalid choice");
-            LINK.transferFrom(msg.sender, address(this), fee);
-
-            bytes32 requestId = requestRandomness(keyHash, fee, block.number);
-            emit Request(msg.sender, requestId);
-
-            games[requestId] = game(
-                  msg.sender,
-                  choice,
-                  lo,
-                  hi,
-                  0,
-                  false
-            );
-
-    }
-    /** 
+        /**
      * Requests randomness from a user-provided seed
      */
     function getRandomNumber(uint256 userProvidedSeed) public returns (bytes32 requestId) {
-        require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
-        return requestRandomness(keyHash, fee, userProvidedSeed);
+            LINK.transferFrom(msg.sender, address(this), fee);
+            return requestRandomness(keyHash, fee, userProvidedSeed);
     }
 
     /**
@@ -89,4 +48,13 @@ contract HDealer is VRFConsumerBase, HMath{
     function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
         randomResult = randomness;
     }
+    function contractApprove(uint amt) external {
+            LINK.approve(address(this), amt);
+
+    }
+    function userLinkApprove(uint amt) external {
+            LINK.approve(msg.sender, amt);
+    }
+
 }
+

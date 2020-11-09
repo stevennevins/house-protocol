@@ -60,7 +60,7 @@ const blockExplorer = "https://etherscan.io/"
       */}
 <CustomContract
               name="HPool"
-        p_address = {selected} 
+        address = {selected} 
               signer={userProvider.getSigner()}
               provider={localProvider}
               blockExplorer={blockExplorer}
