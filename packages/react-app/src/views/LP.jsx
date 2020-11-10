@@ -14,6 +14,8 @@ export default function Pool({address, mainnetProvider, userProvider, localProvi
   const [selected, setSelected] = useState(0);
  
 function onChange(value) {
+        readContracts.HPool.attach(value);
+        writeContracts.HPool.attach(value);
         console.log(value);
         setSelected(value);
 }
