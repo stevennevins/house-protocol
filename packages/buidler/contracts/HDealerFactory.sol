@@ -13,7 +13,8 @@ contract HDealerFactory{
         function deployNewDealer() 
                 public returns (address){
                         require(_poolFactory!=address(0), "Not linked to pool facotry");
-                HDealer d = new HDealer(_poolFactory, msg.sender);
+//                HDealer d = new HDealer(_poolFactory, msg.sender);
+                HDealer d = new HDealer();
                 dealers[address(d)]=true;
                 emit DealerMinted(address(d));
         }

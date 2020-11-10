@@ -6,16 +6,17 @@ import { useContractReader, useEventListener, useResolveName, useCustomContractL
 import { parseEther, formatEther } from "@ethersproject/units";
 
 export default function Game({address, mainnetProvider, userProvider, localProvider, yourLocalBalance, price, tx, readContracts, writeContracts }) {
-
   //📟 Listen for broadcast events
   const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
   console.log("📟 Dealer Minted:",dealerMinted)
   const { Option } = Select;
   const [selected, setSelected] = useState(0);
- 
-function onChange(value) {
-        console.log(value);
-        setSelected(value);
+   
+function onChange(value){
+   console.log(value);
+   readContracts.HDealer.attach(value);
+   writeContracts.HDealer.attach(value);
+   setSelected(value);
 }
 
 function onBlur() {
