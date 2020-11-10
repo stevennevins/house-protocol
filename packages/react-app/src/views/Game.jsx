@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button, List, Divider, Input, Card, DatePicker, Slider, Switch, Progress, Spin, Select} from "antd";
 import { SyncOutlined } from '@ant-design/icons';
-import { Address, AddressInput, Balance, CustomContract} from "../components";
+import { Address, AddressInput, Balance, CustomContract, Contract} from "../components";
 import { useContractReader, useEventListener, useResolveName, useCustomContractLoader } from "../hooks";
 import { parseEther, formatEther } from "@ethersproject/units";
 
@@ -13,10 +13,14 @@ export default function Game({address, mainnetProvider, userProvider, localProvi
   const [selected, setSelected] = useState(0);
    
 function onChange(value){
-   console.log(value);
+   console.log(readContracts.HDealer.address);
    readContracts.HDealer.attach(value);
+   console.log(readContracts.HDealer.address);
+   console.log(writeContracts.HDealer.address);
    writeContracts.HDealer.attach(value);
+   console.log(writeContracts.HDealer.address);
    setSelected(value);
+   console.log(value);
 }
 
 function onBlur() {
@@ -61,10 +65,10 @@ const blockExplorer = "https://etherscan.io/"
       */}
 <CustomContract
               name="HDealer"
-              address = {selected} 
               signer={userProvider.getSigner()}
               provider={localProvider}
               blockExplorer={blockExplorer}
+              address = {selected}
             />
 
         <Divider/>

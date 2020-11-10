@@ -9,7 +9,7 @@ export default function Pool({address, mainnetProvider, userProvider, localProvi
 
   //📟 Listen for broadcast events
   const PoolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);
-  console.log("📟 Dealer Minted:",PoolMinted)
+  console.log("📟 Pool Minted:",PoolMinted)
   const { Option } = Select;
   const [selected, setSelected] = useState(0);
  
@@ -62,7 +62,7 @@ const blockExplorer = "https://etherscan.io/"
       */}
 <CustomContract
               name="HPool"
-        address = {selected} 
+              address = {selected} 
               signer={userProvider.getSigner()}
               provider={localProvider}
               blockExplorer={blockExplorer}
