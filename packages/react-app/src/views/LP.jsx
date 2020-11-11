@@ -88,6 +88,14 @@ const blockExplorer = "https://etherscan.io/"
           }}
         />
       </div>
+            <CustomContract
+                    name="IERC20"
+                    signer = {userProvider.getSigner()}
+                    provider = {localProvider}
+                    blockExplorer={blockExplorer}
+                    address = {selected}
+            />
+
 
     </div>
   );
