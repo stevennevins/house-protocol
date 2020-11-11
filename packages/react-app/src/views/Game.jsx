@@ -91,6 +91,13 @@ const blockExplorer = "https://etherscan.io/"
           }}
         />
       </div>
+            <CustomContract
+                    name="LinkTokenInterface"
+                    signer = {userProvider.getSigner()}
+                    provider = {localProvider}
+                    blockExplorer={blockExplorer}
+                    address = '0xa36085F69e2889c224210F603D836748e7dC0088'
+            />
 
     </div>
   );
