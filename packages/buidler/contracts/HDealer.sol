@@ -30,6 +30,7 @@ contract HDealer is VRFConsumerBase {
             * Requests randomness from a user-provided seed
             */
             function getRandomNumber(uint256 userProvidedSeed) public returns (bytes32 requestId) {
+                     LINK.transferFrom(msg.sender, address(this), fee);
                      require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
                      return requestRandomness(keyHash, fee, userProvidedSeed);
             }
