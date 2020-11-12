@@ -1,15 +1,20 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
+import "./base/HMath.sol";
+import {IHPoolFactory} from "./base/IHPoolFactory.sol";
 
-contract HDealer is VRFConsumerBase {
+contract HDealer is VRFConsumerBase, HMath{
     bytes32  internal keyHash;
     uint256 internal fee;
     address private _dealerFactory;
     address private _poolFactory;
     address private _feeOwner;
+
+    IHPoolFactory public IHPF;
         
     uint256 public randomResult;
+
             
 
 
@@ -42,14 +47,16 @@ contract HDealer is VRFConsumerBase {
             _dealerFactory = msg.sender;
             _poolFactory = poolFactory;
             _feeOwner = feeOwner;
+            IHPF = IHPoolFactory(_poolFactory);
             }
                                                                                                                     
             /** 
             * Requests randomness from a user-provided seed
             */
-            function roll(uint choice, uint lo, uint hi, uint256 userProvidedSeed) public returns (bytes32 requestId) {
+            function roll(uint choice, uint lo, uint hi, address token, uint256 userProvidedSeed) public returns (bytes32 requestId) {
                      LINK.transferFrom(msg.sender, address(this), fee);
                      require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
+                     require( 0 < lo && lo <= choice && choice <= hi, "Invalid Choice");
                      bytes32 requestId = requestRandomness(keyHash, fee, userProvidedSeed);
                      games[requestId] = game(
                              msg.sender,
