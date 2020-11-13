@@ -60,7 +60,11 @@ Once you have Kovan eth in your deployer account you are ready to deploy the con
 
 Navigate to the scripts directory in the builder package:
 
-> house-protocol/buidler/scripts
+```bash
+
+house-protocol/buidler/scripts
+
+```
 
 Edit the deploy script to deploy either part or all of the protocol.
 
