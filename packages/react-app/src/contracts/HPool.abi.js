@@ -93,6 +93,32 @@ module.exports = [
   },
   {
     "inputs": [],
+    "name": "IDealF",
+    "outputs": [
+      {
+        "internalType": "contract IHDealerFactory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "IPoolF",
+    "outputs": [
+      {
+        "internalType": "contract IHPoolFactory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "MAX_HPOW_BASE",
     "outputs": [
       {
@@ -478,6 +504,19 @@ module.exports = [
       }
     ],
     "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amt",
+        "type": "uint256"
+      }
+    ],
+    "name": "payout",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

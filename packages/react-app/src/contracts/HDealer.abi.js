@@ -56,6 +56,19 @@ module.exports = [
   },
   {
     "inputs": [],
+    "name": "IPool",
+    "outputs": [
+      {
+        "internalType": "contract IHPool",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "IPoolF",
     "outputs": [
       {
@@ -146,6 +159,11 @@ module.exports = [
         "internalType": "uint256",
         "name": "hi",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
       },
       {
         "internalType": "uint256",
