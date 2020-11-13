@@ -71,8 +71,6 @@ Edit the deploy script to deploy either part or all of the protocol.
 
 If you want your own copy of the protocol to play around with you will need to add a line in the deploy script for each of the following:
 
-- LinkTokenInterface.sol
-- IERC20.sol
 - HDealerFactory.sol
 - HPoolFactory.sol
 - HDealer.sol
