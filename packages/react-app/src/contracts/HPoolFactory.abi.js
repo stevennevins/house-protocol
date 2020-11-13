@@ -68,11 +68,11 @@ module.exports = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "",
+        "name": "pool",
         "type": "address"
       }
     ],
-    "name": "getPool",
+    "name": "isPool",
     "outputs": [
       {
         "internalType": "address",

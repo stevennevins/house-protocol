@@ -43,7 +43,20 @@ module.exports = [
   },
   {
     "inputs": [],
-    "name": "IHPF",
+    "name": "IDealF",
+    "outputs": [
+      {
+        "internalType": "contract IHDealerFactory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "IPoolF",
     "outputs": [
       {
         "internalType": "contract IHPoolFactory",
@@ -78,19 +91,6 @@ module.exports = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "checkIHPoolFactory",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -494,6 +494,39 @@ module.exports = [
       }
     ],
     "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "choice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lo",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "hi",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "userProvidedSeed",
+        "type": "uint256"
+      }
+    ],
+    "name": "userPaysRoll",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ];
