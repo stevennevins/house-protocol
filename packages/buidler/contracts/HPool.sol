@@ -7,7 +7,7 @@ import "./base/IERC20.sol";
 
 contract HPool is HToken, HMath{
         address private _poolFactory;
-        address private _token;
+        address public _token;
         address private _dealerFactory;
         bool private _mutex;
 
