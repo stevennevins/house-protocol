@@ -13,11 +13,9 @@ async function main() {
 //  const deployPoolF = await deploy("HPoolFactory");
   const deployDealer = await deploy("HDealerFactory");
  // const deployPool = await deploy("HPool",['0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8','0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8']);
-  // const examplePriceOracle = await deploy("ExamplePriceOracle")
   const deployGame = await deploy("HDealer",['0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8','0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8']);
 //  const ierc20 = await deploy("IERC20");
 //  const linkinterface = await deploy("LinkTokenInterface");
-  // const smartContractWallet = await deploy("SmartContractWallet",[exampleToken.address,examplePriceOracle.address])
 }
 
 
