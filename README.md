@@ -10,11 +10,15 @@ House Protocol is an open-source protocol build on Ethereum and Chainlink where 
 ## Quickstart - Frontend
 
 ```bash 
+
 git clone https://github.com/dmintercept/house-protocol.git 
 
 cd house-protocol 
+
 ```
+
 >You might want to use tmux to manage the active terminal windows
+
 ```bash
 
 yarn install
@@ -43,6 +47,7 @@ First you will need a buidler account to deploy from
 
 ```
 yarn run generate
+
 ```
 
 Once you have your deployer account you will need to get some Kovan Eth:https://faucet.kovan.network/
