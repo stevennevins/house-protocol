@@ -10,9 +10,9 @@ House Protocol is an open-source protocol built on Ethereum and Chainlink where 
 
 ## Quickstart - Frontend
 
-Visit the chainlink faucet: https://kovan.chain.link/ and grab some link to pay for the oracle fees
+Visit the [chainlink faucet](https://kovan.chain.link/) and grab some link to pay for the oracle fees
 
-Grab some kovan eth from the faucet to pay for gas: https://faucet.kovan.network/
+Grab some kovan eth from the [faucet](https://faucet.kovan.network/)
 
 ```bash 
 
