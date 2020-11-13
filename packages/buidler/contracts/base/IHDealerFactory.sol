@@ -7,5 +7,7 @@ interface IHDealerFactory {
         function setFactory(address poolFactory) external;
 
         function getFactory() external view returns(address);
+
+        function isDealer(address dealer) external view returns(bool);
 }
 

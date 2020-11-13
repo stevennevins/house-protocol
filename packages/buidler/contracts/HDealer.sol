@@ -4,6 +4,7 @@ import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 import "./base/HMath.sol";
 import {IHPoolFactory} from "./base/IHPoolFactory.sol";
 import {IHDealerFactory} from "./base/IHDealerFactory.sol";
+import {IHPool} from "./base/IHPool.sol";
 
 contract HDealer is VRFConsumerBase, HMath{
     bytes32  internal keyHash;
@@ -12,6 +13,7 @@ contract HDealer is VRFConsumerBase, HMath{
 
     IHPoolFactory public IPoolF;
     IHDealerFactory public IDealF;
+    IHPool public IPool;
         
     uint256 public randomResult;
 
@@ -20,6 +22,7 @@ contract HDealer is VRFConsumerBase, HMath{
             uint choice;
             uint lo;
             uint hi;
+            address token;
             uint randomness;
             bool fulfilled;
     }
@@ -68,6 +71,7 @@ contract HDealer is VRFConsumerBase, HMath{
                              choice,
                              lo,
                              hi,
+                             token,
                              0,
                              false
                              );
@@ -78,7 +82,8 @@ contract HDealer is VRFConsumerBase, HMath{
             */
             function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
                     games[requestId].randomness = randomness;
-                     randomResult = games[requestId].randomness;
+                    randomResult = games[requestId].randomness;
+                    IPool = IHPool(games[requestId].token); 
             }
 
 }

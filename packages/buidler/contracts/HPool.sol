@@ -2,19 +2,21 @@ pragma solidity >=0.6.0 <0.7.0;
 
 import "./base/HToken.sol";
 import "./base/HMath.sol";
-import "./base/IHDealerFactory.sol";
 import "./base/IERC20.sol";
+import {IHPoolFactory} from "./base/IHPoolFactory.sol";
+import {IHDealerFactory} from "./base/IHDealerFactory.sol";
+
 
 contract HPool is HToken, HMath{
-        address private _poolFactory;
         address public _token;
-        address private _dealerFactory;
         bool private _mutex;
-
+        IHPoolFactory public IPoolF;
+        IHDealerFactory public IDealF;
+ 
         constructor(address token, address dealerFactory) public{
-                _poolFactory = msg.sender;
+                IPoolF = IHPoolFactory(msg.sender);
+                IDealF = IHDealerFactory(dealerFactory);
                 _token = token;
-                _dealerFactory = dealerFactory;
         }
 
         modifier _lock_() {
@@ -60,6 +62,11 @@ contract HPool is HToken, HMath{
         function _pullUnderlying(address erc20, address from, uint amount) internal {
                 bool xfer = IERC20(erc20).transferFrom(from, address(this), amount);
                 require(xfer, "ERR_ERC20_FALSE");
+        }
+        // Dealer functions
+        function payout(uint amt) external {
+                require(IDealF.isDealer(msg.sender), 'Not Dealer');
+                _pushUnderlying(_token, msg.sender, amt);
         }
 
 }
