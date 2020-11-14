@@ -20,11 +20,9 @@ contract HDealer is VRFConsumerBase, HMath{
     struct game {
             address sender;
             uint choice;
-            uint lo;
-            uint hi;
+            uint choices;
             address token;
             uint randomness;
-            bool fulfilled;
     }
 
     mapping(bytes32 => game) public games;
@@ -69,11 +67,9 @@ contract HDealer is VRFConsumerBase, HMath{
                      games[requestId] = game(
                              msg.sender,
                              choice,
-                             lo,
-                             hi,
+                             hadd(hsub(hi,lo),1),
                              token,
-                             0,
-                             false
+                             0
                              );
             }
 

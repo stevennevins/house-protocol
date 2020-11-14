@@ -26,12 +26,30 @@ contract HPool is HToken, HMath{
                 _mutex = false;
         }
 
-        function joinPool(uint hTokenOut) external _lock_ {
-                uint poolTotal = totalSupply();
+        function initialize(uint amt) external {
+                require(totalSupply()==0);
+                _pullUnderlying(_token, msg.sender, amt);
+                _mintPoolShare(amt);
+                _pushPoolShare(msg.sender, amt);
+        }
+
+        function joinPool(uint tokenIn) external {
+                uint hTokenSupply = totalSupply();
+                uint tokenBalance = IERC20(_token).balanceOf(address(this));
+                uint hToken = tokenSwap(tokenIn, tokenBalance, hTokenSupply);
+                _pullUnderlying(_token, msg.sender, tokenIn);
+                _mintPoolShare(hToken);
+                _pushPoolShare(msg.sender, hToken);
         }
         
-        function exitPool(uint hTokenIn) external _lock_ {
-                uint poolTotal = totalSupply();
+        function exitPool(uint hTokenIn) external {
+                uint hTokenSupply = totalSupply();
+                uint tokenBalance = IERC20(_token).balanceOf(address(this));
+                uint token = hTokenSwap(hTokenIn, tokenBalance, hTokenSupply);
+                _pullPoolShare(msg.sender, hTokenIn);
+                _pushUnderlying(_token, msg.sender, token);
+                _burnPoolShare(hTokenIn);
+
         }
         //==
         // 'Underlying' token manipulation functions make external calls but are not locked

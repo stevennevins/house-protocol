@@ -4,7 +4,7 @@ import "./HPool.sol";
 
 contract HPoolFactory{
         mapping(address=>address) private deployedPools;
-        event PoolMinted(address tokenAddress);
+        event PoolMinted(address tokenAddress, address token);
         address public _dealerFactory;
         bool private _finalized=false;
 
@@ -14,7 +14,7 @@ contract HPoolFactory{
                         require(_dealerFactory!=address(0),"Not linked to dealers");
                         HPool p = new HPool(token, _dealerFactory);
                         deployedPools[token]=address(p);
-                        emit PoolMinted(address(p));
+                        emit PoolMinted(address(p), token);
         }
 
         function finalize() external {
