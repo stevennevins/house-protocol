@@ -354,7 +354,20 @@ module.exports = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "hTokenOut",
+        "name": "amt",
+        "type": "uint256"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenIn",
         "type": "uint256"
       }
     ],

@@ -13,9 +13,11 @@ export default function Pool({address, mainnetProvider, userProvider, localProvi
   const { Option } = Select;
   const [selected, setSelected] = useState(0);
  
+        const erc20 = PoolMinted.filter(event => event[0]==selected)[0]||{0:'',1:''};
+  console.log('logging erc20');
+  console.log(erc20);
 function onChange(value) {
-        readContracts.HPool.attach(value);
-        writeContracts.HPool.attach(value);
+        console.log('logging pool change');
         console.log(value);
         setSelected(value);
 }
@@ -54,7 +56,7 @@ const blockExplorer = "https://etherscan.io/"
                 }
             >
                     {PoolMinted.map(item=>(
-                            <Option key={item[0]}>{item[0]}</Option>
+                            <Option key={item[0]} value={item[0]}>{item[0]}</Option>
                     ))}
   </Select>
       {/*
@@ -93,9 +95,8 @@ const blockExplorer = "https://etherscan.io/"
                     signer = {userProvider.getSigner()}
                     provider = {localProvider}
                     blockExplorer={blockExplorer}
-                    address = {selected}
+                    address = {erc20[1]}
             />
-
 
     </div>
   );

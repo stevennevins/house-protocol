@@ -7,6 +7,12 @@ module.exports = [
         "internalType": "address",
         "name": "tokenAddress",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
       }
     ],
     "name": "PoolMinted",

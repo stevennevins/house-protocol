@@ -152,12 +152,7 @@ module.exports = [
       },
       {
         "internalType": "uint256",
-        "name": "lo",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "hi",
+        "name": "choices",
         "type": "uint256"
       },
       {
@@ -169,11 +164,6 @@ module.exports = [
         "internalType": "uint256",
         "name": "randomness",
         "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "fulfilled",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
