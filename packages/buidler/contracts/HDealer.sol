@@ -1,12 +1,12 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
-import "./base/HMath.sol";
+import "./base/HNum.sol";
 import {IHPoolFactory} from "./base/IHPoolFactory.sol";
 import {IHDealerFactory} from "./base/IHDealerFactory.sol";
 import {IHPool} from "./base/IHPool.sol";
-
-contract HDealer is VRFConsumerBase, HMath{
+//add gulp: https://ethereum.stackexchange.com/questions/84851/how-to-withdraw-other-erc20-tokens-besides-ethereum-from-my-contract
+contract HDealer is VRFConsumerBase, HNum{
     bytes32  internal keyHash;
     uint256 internal fee;
     address private _feeOwner;
@@ -18,10 +18,11 @@ contract HDealer is VRFConsumerBase, HMath{
     uint256 public randomResult;
 
     struct game {
-            address sender;
+            address player;
+            uint bet;
             uint choice;
             uint choices;
-            address token;
+            address pool;
             uint randomness;
     }
 
@@ -50,25 +51,27 @@ contract HDealer is VRFConsumerBase, HMath{
             /** 
             * Transfer link from user to contract then roll
             */
-            function userPaysRoll(uint choice, uint lo, uint hi, address token, uint userProvidedSeed) public{
+            function userPaysRoll(uint choice, uint bet, uint lo, uint hi, address token, uint userProvidedSeed) public{
                     require(LINK.balanceOf(msg.sender)>=fee,"Not enough link - fill with faucet");
                     LINK.transferFrom(msg.sender, address(this), fee);
-                    roll(choice, lo, hi, token, userProvidedSeed);
+                    roll(choice, bet, lo, hi, token, userProvidedSeed);
             }
             
             /** 
             * Requests randomness from a user-provided seed paid from contract balance
             */
-            function roll(uint choice, uint lo, uint hi, address token, uint256 userProvidedSeed) public returns (bytes32 requestId) {
+            function roll(uint choice, uint bet, uint lo, uint hi, address token, uint256 userProvidedSeed) public returns (bytes32 requestId) {
                      require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
+                     //add ierc20 and check user balance before submitting roll
                      require(IPoolF.isPool(token)!=address(0), "Not a valid pool");
                      require( 0 < lo && lo <= choice && choice <= hi, "Invalid Choice");
                      bytes32 requestId = requestRandomness(keyHash, fee, userProvidedSeed);
                      games[requestId] = game(
                              msg.sender,
-                             choice,
+                             bet,
+                             hadd(hsub(choice,lo),1),
                              hadd(hsub(hi,lo),1),
-                             token,
+                             IPoolF.isPool(token),
                              0
                              );
             }
@@ -79,7 +82,7 @@ contract HDealer is VRFConsumerBase, HMath{
             function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
                     games[requestId].randomness = randomness;
                     randomResult = games[requestId].randomness;
-                    IPool = IHPool(games[requestId].token); 
+                    IPool = IHPool(games[requestId].pool); 
             }
 
 }

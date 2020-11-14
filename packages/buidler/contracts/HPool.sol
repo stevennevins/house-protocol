@@ -5,6 +5,7 @@ import "./base/HMath.sol";
 import "./base/IERC20.sol";
 import {IHPoolFactory} from "./base/IHPoolFactory.sol";
 import {IHDealerFactory} from "./base/IHDealerFactory.sol";
+//decimals: https://ethereum.stackexchange.com/questions/19673/decimals-on-erc20-tokens
 
 
 contract HPool is HToken, HMath{
