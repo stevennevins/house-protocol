@@ -5,5 +5,5 @@ interface IHPoolFactory {
 
         function getFactory() external view returns(address);
 
-        function isPool(address pool) external view returns(address);
+        function getPool(address underlying) external view returns(address);
 }

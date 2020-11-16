@@ -30,7 +30,7 @@ contract HPoolFactory{
                 return _dealerFactory;
         }
 
-        function isPool(address pool) external view returns (address){
-                return deployedPools[pool];
+        function getPool(address underlying) external view returns (address){
+                return deployedPools[underlying];
         }
 }

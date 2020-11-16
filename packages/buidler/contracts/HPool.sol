@@ -6,6 +6,7 @@ import "./base/IERC20.sol";
 import {IHPoolFactory} from "./base/IHPoolFactory.sol";
 import {IHDealerFactory} from "./base/IHDealerFactory.sol";
 //decimals: https://ethereum.stackexchange.com/questions/19673/decimals-on-erc20-tokens
+//if (x.balance < 10 && myAddress.balance >= 10) x.transfer(10);
 
 
 contract HPool is HToken, HMath{
@@ -14,6 +15,17 @@ contract HPool is HToken, HMath{
         IHPoolFactory public IPoolF;
         IHDealerFactory public IDealF;
  
+        bool public win;
+        struct game {
+                address player;
+                uint bet;
+                uint b;
+                uint edge;
+                address dealer;
+                }
+
+        mapping(bytes32 => game) public games;
+
         constructor(address token, address dealerFactory) public{
                 IPoolF = IHPoolFactory(msg.sender);
                 IDealF = IHDealerFactory(dealerFactory);
@@ -82,10 +94,33 @@ contract HPool is HToken, HMath{
                 bool xfer = IERC20(erc20).transferFrom(from, address(this), amount);
                 require(xfer, "ERR_ERC20_FALSE");
         }
+        function commit(address player, uint bet, uint b, uint edge, bytes32 requestId) external returns (bool){
+                require(IDealF.isDealer(msg.sender));
+                _pullUnderlying(_token, player, bet);
+                games[requestId] = game(
+                player,
+                bet,
+                b,
+                edge,
+                msg.sender
+                );
+                return true;
+                 
+        }
         // Dealer functions
-        function payout(uint amt) external {
-                require(IDealF.isDealer(msg.sender), 'Not Dealer');
-                _pushUnderlying(_token, msg.sender, amt);
+        function payout(bytes32 requestId) external {
+                //uint result = result(1, choices, randomness);
+                //uint p = pWin(choices);
+                //uint b = payOdds(p);
+                //uint maxbet = maxBet(IERC20(_token).balanceOf(address(this)), edge, b, 1);
+                //check maxbet vs bet, set bet to max bet and return excess
+                win = true;
+
+                //if result = choice payout 
+                //if (choice == result) {
+                //        uint payout = payout(b, bet, edge);
+                //        win=true;
+                //}
         }
 
 }

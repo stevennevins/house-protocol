@@ -18,8 +18,6 @@ contract HDealer is VRFConsumerBase, HNum{
     uint256 public randomResult;
 
     struct game {
-            address player;
-            uint bet;
             uint choice;
             uint choices;
             address pool;
@@ -49,29 +47,26 @@ contract HDealer is VRFConsumerBase, HNum{
             }
 
             /** 
-            * Transfer link from user to contract then roll
-            */
-            function userPaysRoll(uint choice, uint bet, uint lo, uint hi, address token, uint userProvidedSeed) public{
-                    require(LINK.balanceOf(msg.sender)>=fee,"Not enough link - fill with faucet");
-                    LINK.transferFrom(msg.sender, address(this), fee);
-                    roll(choice, bet, lo, hi, token, userProvidedSeed);
-            }
-            
-            /** 
             * Requests randomness from a user-provided seed paid from contract balance
             */
-            function roll(uint choice, uint bet, uint lo, uint hi, address token, uint256 userProvidedSeed) public returns (bytes32 requestId) {
+            function roll(uint choice, uint bet,uint edge, uint lo, uint hi, address token, uint256 userProvidedSeed) public {
+                     require(LINK.balanceOf(msg.sender)>=fee,"Not enough link - fill with faucet");
+                     bool xfer = LINK.transferFrom(msg.sender, address(this), fee);
+                     require(xfer , 'transfer of link failed');
                      require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
                      //add ierc20 and check user balance before submitting roll
-                     require(IPoolF.isPool(token)!=address(0), "Not a valid pool");
+                     address pool = IPoolF.getPool(token);
+                     require(pool!=address(0), "Not a valid pool");
                      require( 0 < lo && lo <= choice && choice <= hi, "Invalid Choice");
                      bytes32 requestId = requestRandomness(keyHash, fee, userProvidedSeed);
+                     IPool = IHPool(pool);
+                     uint b = 1;
+                     bool commit = IPool.commit(msg.sender, bet, b, edge, requestId);
+                     require(commit, 'commit failed');
                      games[requestId] = game(
-                             msg.sender,
-                             bet,
                              hadd(hsub(choice,lo),1),
                              hadd(hsub(hi,lo),1),
-                             IPoolF.isPool(token),
+                             pool,
                              0
                              );
             }
@@ -83,6 +78,7 @@ contract HDealer is VRFConsumerBase, HNum{
                     games[requestId].randomness = randomness;
                     randomResult = games[requestId].randomness;
                     IPool = IHPool(games[requestId].pool); 
+                    IPool.payout(requestId);
             }
 
 }
