@@ -48,7 +48,7 @@ yarn chain
 
 This is a testing UI on Kovan
 
-Factor Page
+Factory Page
 
 - Create LPs
 - Create Dealers
