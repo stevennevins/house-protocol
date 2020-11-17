@@ -67,9 +67,9 @@ Game Page
 - Approve the Pool you want to place bet against on the LP page as a spender of the underlying token
 - Place a bet
     - Must be greater than 10000 wei
-    - b value 10 ^ 16 and 10 ^ 10
-    - b 10 ^ 16 = 99% odds 1.01x payout
-    - b 10 ^ 20 = 1% odds and 100x payout
+    - b is a value 10 ^ 16 and 10 ^ 10
+    - b equal to 10 ^ 16 = 99% odds 1.01x payout
+    - b equal to 10 ^ 20 = 1% odds and 100x payout
     - Edge is deducted from winning bets (Can be 0)
  
 ## Quickstart - Deploy your own
