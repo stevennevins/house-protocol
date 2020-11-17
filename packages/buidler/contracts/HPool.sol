@@ -3,14 +3,22 @@ pragma solidity >=0.6.0 <0.7.0;
 import "./base/HToken.sol";
 import "./base/HMath.sol";
 import "./base/IERC20.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 import {IHPoolFactory} from "./base/IHPoolFactory.sol";
 import {IHDealerFactory} from "./base/IHDealerFactory.sol";
 
 contract HPool is HToken, HMath{
+        using SafeMath for uint;
         address public _underlying;
         bool private _mutex;
         IHPoolFactory public IPoolF;
         IHDealerFactory public IDealF;
+        uint public winnings;
+        uint public _b;
+        uint public _bet;
+        uint public _step1;
+        uint public _step2;
+        uint public _step3;
  
         bool public win;
         struct game {
@@ -104,19 +112,14 @@ contract HPool is HToken, HMath{
         }
         
         function payout(bytes32 requestId) external {
-//                require(msg.sender==VRF_Coordinator);
-                //uint result = result(1, choices, randomness);
-                //uint p = pWin(choices);
-                //uint b = payOdds(p);
-                //uint maxbet = maxBet(IERC20(_underlying).balanceOf(address(this)), edge, b, 1);
-                //check maxbet vs bet, set bet to max bet and return excess
-                win = true;
-
-                //if result = choice payout 
-                //if (choice == result) {
-                //        uint payout = payout(b, bet, edge);
-                //        win=true;
-                //}
+                _b = games[requestId].b;
+                address player = games[requestId].player;
+                _bet = games[requestId].bet;
+                _step1 = _b.add(BONE);
+                _step2 = _step1.mul(_bet);
+                _step3 = _step2.div(BONE);
+//                winnings = hdiv(hmul(bet, hadd(b, BONE)), BONE);
+                _pushUnderlying(_underlying, player, _bet);
         }
 
         function clear(bytes32 requestId) external {

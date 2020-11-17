@@ -1,13 +1,13 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
-import "./base/HMath.sol";
+import "./base/HConst.sol";
 import {IHPoolFactory} from "./base/IHPoolFactory.sol";
 import {IHPool} from "./base/IHPool.sol";
 import {IERC20} from "./base/IERC20.sol";
 //add gulp: https://ethereum.stackexchange.com/questions/84851/how-to-withdraw-other-erc20-tokens-besides-ethereum-from-my-contract
 
-contract HDealer is VRFConsumerBase, HMath {
+contract HDealer is VRFConsumerBase, HConst{
     bytes32  internal keyHash;
     uint256 internal fee;
     address private _dealerOwner;
@@ -17,8 +17,7 @@ contract HDealer is VRFConsumerBase, HMath {
     IERC20 public I20;
         
     struct game {
-            uint choice;
-            uint choices;
+            uint b;
             address pool;
     }
 
@@ -42,19 +41,18 @@ contract HDealer is VRFConsumerBase, HMath {
             /** 
             * Requests randomness from a user-provided seed paid from contract balance
             */
-            function roll(uint choice, uint bet, uint edge, uint lo, uint hi, address token, uint256 userProvidedSeed) public {
+            function roll(uint bet, uint edge, uint b, address token, uint256 userProvidedSeed) public {
+                     require((b > BONE.div(100)) && (b < BONE.mul(100)));
+                     require(bet > 10000);
                      address pool = IPoolF.getPool(token);
                      require(pool!=address(0), "Not a valid pool");
                      require(IERC20(token).balanceOf(msg.sender)>bet, 'Balance too low');
-                     require( 0 < lo && lo <= choice && choice <= hi, "Invalid Choice");
                      bool xfer = LINK.transferFrom(msg.sender, address(this), fee);
                      require(xfer , 'transfer of link failed');
                      bytes32 requestId = requestRandomness(keyHash, fee, userProvidedSeed);
                      IPool = IHPool(pool);
-                     uint b = 1;
-                     //uint b_test = payOdds(pWin(hadd(hsub(hi,lo), 1)));
                      IPool.commit(msg.sender, bet, b, edge, requestId);
-                     games[requestId] = game(hadd(hsub(choice,lo),1), hadd(hsub(hi,lo),1), pool);
+                     games[requestId] = game(b, pool);
             }
 
             /**
@@ -62,7 +60,7 @@ contract HDealer is VRFConsumerBase, HMath {
             */
             function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
                     IPool = IHPool(games[requestId].pool); 
-                    if (games[requestId].choice == result(1, games[requestId].choices,randomness)) IPool.payout(requestId);
+                    if (BONE > randomness.mod(BONE.add(games[requestId].b))) IPool.payout(requestId);
                     IPool.clear(requestId);
             }
 
