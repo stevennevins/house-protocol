@@ -51,11 +51,11 @@ contract HPool is HToken, HConst{
                 _pushPoolShare(msg.sender, amt);
         }
         
-        function tokenSwap(uint tokenIn, uint tokenBalance, uint hTokenSupply) public pure returns (uint) {
+        function tokenSwap(uint tokenIn, uint tokenBalance, uint hTokenSupply) internal pure returns (uint) {
                 return tokenIn.mul(hTokenSupply.div(tokenBalance));
         }
         
-        function hTokenSwap(uint hTokenIn, uint tokenBalance, uint hTokenSupply) public pure returns (uint) {
+        function hTokenSwap(uint hTokenIn, uint tokenBalance, uint hTokenSupply) internal pure returns (uint) {
                 return hTokenIn.mul(tokenBalance.div(hTokenSupply));
         }
 
