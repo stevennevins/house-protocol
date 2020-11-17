@@ -5,12 +5,9 @@ import "./base/HMath.sol";
 import "./base/IERC20.sol";
 import {IHPoolFactory} from "./base/IHPoolFactory.sol";
 import {IHDealerFactory} from "./base/IHDealerFactory.sol";
-//decimals: https://ethereum.stackexchange.com/questions/19673/decimals-on-erc20-tokens
-//if (x.balance < 10 && myAddress.balance >= 10) x.transfer(10);
-
 
 contract HPool is HToken, HMath{
-        address public _token;
+        address public _underlying;
         bool private _mutex;
         IHPoolFactory public IPoolF;
         IHDealerFactory public IDealF;
@@ -26,10 +23,13 @@ contract HPool is HToken, HMath{
 
         mapping(bytes32 => game) public games;
 
-        constructor(address token, address dealerFactory) public{
+        constructor(address token, address dealerFactory, string memory symbol, string memory name, uint8 decimals) public{
                 IPoolF = IHPoolFactory(msg.sender);
                 IDealF = IHDealerFactory(dealerFactory);
-                _token = token;
+                _underlying = token;
+                _symbol = symbol;
+                _name = name;
+                _decimals = decimals;
         }
 
         modifier _lock_() {
@@ -41,26 +41,26 @@ contract HPool is HToken, HMath{
 
         function initialize(uint amt) external {
                 require(totalSupply()==0);
-                _pullUnderlying(_token, msg.sender, amt);
+                _pullUnderlying(_underlying, msg.sender, amt);
                 _mintPoolShare(amt);
                 _pushPoolShare(msg.sender, amt);
         }
 
         function joinPool(uint tokenIn) external {
                 uint hTokenSupply = totalSupply();
-                uint tokenBalance = IERC20(_token).balanceOf(address(this));
+                uint tokenBalance = IERC20(_underlying).balanceOf(address(this));
                 uint hToken = tokenSwap(tokenIn, tokenBalance, hTokenSupply);
-                _pullUnderlying(_token, msg.sender, tokenIn);
+                _pullUnderlying(_underlying, msg.sender, tokenIn);
                 _mintPoolShare(hToken);
                 _pushPoolShare(msg.sender, hToken);
         }
         
         function exitPool(uint hTokenIn) external {
                 uint hTokenSupply = totalSupply();
-                uint tokenBalance = IERC20(_token).balanceOf(address(this));
+                uint tokenBalance = IERC20(_underlying).balanceOf(address(this));
                 uint token = hTokenSwap(hTokenIn, tokenBalance, hTokenSupply);
                 _pullPoolShare(msg.sender, hTokenIn);
-                _pushUnderlying(_token, msg.sender, token);
+                _pushUnderlying(_underlying, msg.sender, token);
                 _burnPoolShare(hTokenIn);
 
         }
@@ -94,25 +94,21 @@ contract HPool is HToken, HMath{
                 bool xfer = IERC20(erc20).transferFrom(from, address(this), amount);
                 require(xfer, "ERR_ERC20_FALSE");
         }
-        function commit(address player, uint bet, uint b, uint edge, bytes32 requestId) external returns (bool){
-                require(IDealF.isDealer(msg.sender));
-                _pullUnderlying(_token, player, bet);
-                games[requestId] = game(
-                player,
-                bet,
-                b,
-                edge,
-                msg.sender
-                );
-                return true;
-                 
-        }
+
         // Dealer functions
+        function commit(address player, uint bet, uint b, uint edge, bytes32 requestId) external{
+                require(IDealF.isDealer(msg.sender));
+                //if statement checking maxbet and setting bet to it if bet > maxbet
+                _pullUnderlying(_underlying, player, bet);
+                games[requestId] = game(player, bet, b, edge, msg.sender);
+        }
+        
         function payout(bytes32 requestId) external {
+//                require(msg.sender==VRF_Coordinator);
                 //uint result = result(1, choices, randomness);
                 //uint p = pWin(choices);
                 //uint b = payOdds(p);
-                //uint maxbet = maxBet(IERC20(_token).balanceOf(address(this)), edge, b, 1);
+                //uint maxbet = maxBet(IERC20(_underlying).balanceOf(address(this)), edge, b, 1);
                 //check maxbet vs bet, set bet to max bet and return excess
                 win = true;
 
@@ -121,6 +117,10 @@ contract HPool is HToken, HMath{
                 //        uint payout = payout(b, bet, edge);
                 //        win=true;
                 //}
+        }
+
+        function clear(bytes32 requestId) external {
+                delete games[requestId];
         }
 
 }

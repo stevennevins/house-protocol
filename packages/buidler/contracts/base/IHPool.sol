@@ -6,8 +6,10 @@ interface IHPool {
 
         function exitPool(uint hTokenIn) external view returns(address);
 
-        function commit(address player, uint bet, uint b, uint edge, bytes32 requestId) external returns (bool); 
+        function commit(address player, uint bet, uint b, uint edge, bytes32 requestId) external; 
 
         function payout(bytes32 requestId) external;
+
+        function clear(bytes32 requestId) external;
 }
 

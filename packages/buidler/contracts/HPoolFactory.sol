@@ -8,13 +8,19 @@ contract HPoolFactory{
         address public _dealerFactory;
         bool private _finalized=false;
 
-        function deployNewPool(address token) 
-                public returns (address){
+        function deployNewPool(address token, string memory name, string memory symbol, uint8 decimals) public returns (address) {
                         require(deployedPools[token] == address(0), "Pool exists");
                         require(_dealerFactory!=address(0),"Not linked to dealers");
-                        HPool p = new HPool(token, _dealerFactory);
+                        HPool p = new HPool(token, _dealerFactory, symbol, name, decimals);
                         deployedPools[token]=address(p);
                         emit PoolMinted(address(p), token);
+        }
+
+        function removePool(address token) public {
+                require(deployedPools[token]!=address(0), "Pool doesn't exist");
+                //make only owner
+                require(_dealerFactory!= address(0), "Not linked to dealers");
+                delete deployedPools[token];
         }
 
         function finalize() external {

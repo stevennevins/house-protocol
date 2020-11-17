@@ -5,9 +5,9 @@ import "./HTokenBase.sol";
 
 contract HToken is HTokenBase, IERC20{
         //General
-        string private _name;
-        string private _symbol;
-        uint8 private _decimals;
+        string public _name;
+        string public  _symbol;
+        uint8 public _decimals;
         
         function name() public view returns(string memory){
 

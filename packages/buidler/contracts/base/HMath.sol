@@ -78,7 +78,7 @@ contract HMath is HConst, HNum{
      public pure
      returns (uint)
      {
-             return hdiv(1 , choices);
+             return hdiv(BONE , choices * BONE);
      }
      /************************************************
      //Calculates the payout at p
@@ -94,7 +94,7 @@ contract HMath is HConst, HNum{
      public pure
      returns (uint)
      {
-             return hdiv(hsub(1, p), p);
+             return hdiv(hsub(BONE, p), p);
      }
      /************************************************
      //Calculate the payout at the odds taken, bet size, and edge
@@ -103,7 +103,7 @@ contract HMath is HConst, HNum{
      //b = payout odds
      //b = (1 - p )/ p
      //payout = (bet * b + bet)(1-edge)
-     ************************************************/
+     *************************************************/
      function payout(
              uint b,
              uint bet,
@@ -112,7 +112,7 @@ contract HMath is HConst, HNum{
      public pure
      returns (uint)
      {
-             return hmul(hadd(hmul(bet , b), bet) , hsub(1 , edge));
+             return hdiv(hmul(hadd(hmul(bet , b), bet) , hsub(BONE , edge * BONE)), BONE);
      }
      /************************************************
      //Owners' payout at the odds taken, bet size, and edge
@@ -130,7 +130,7 @@ contract HMath is HConst, HNum{
      public pure
      returns (uint)
      {
-             return hmul(hadd(hmul(bet , b), bet) , hdiv(edge , 2));
+             return hdiv(hmul(hadd(hmul(bet , b), bet) , hdiv(edge * BONE , 2)), BONE);
      }
      /************************************************
      //Max bet
@@ -149,7 +149,7 @@ contract HMath is HConst, HNum{
      public pure
      returns (uint)
      {
-             return hmul(b, hmul(hmul( bankroll, edge ), k));
+             return hdiv(hmul(b, hmul(hmul( bankroll, edge * BONE), k * BONE)), hpow(BONE, 2));
      }
 
 

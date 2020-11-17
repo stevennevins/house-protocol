@@ -8,7 +8,7 @@ module.exports = [
       },
       {
         "internalType": "address",
-        "name": "feeOwner",
+        "name": "dealerOwner",
         "type": "address"
       }
     ],
@@ -43,10 +43,10 @@ module.exports = [
   },
   {
     "inputs": [],
-    "name": "IDealF",
+    "name": "I20",
     "outputs": [
       {
-        "internalType": "contract IHDealerFactory",
+        "internalType": "contract IERC20",
         "name": "",
         "type": "address"
       }
@@ -82,6 +82,19 @@ module.exports = [
   },
   {
     "inputs": [],
+    "name": "LINK_Token",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "MAX_HPOW_BASE",
     "outputs": [
       {
@@ -104,6 +117,43 @@ module.exports = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "VRF_Coordinator",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "hi",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lo",
+        "type": "uint256"
+      }
+    ],
+    "name": "choiceRange",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -130,14 +180,72 @@ module.exports = [
         "internalType": "address",
         "name": "pool",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "randomness",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "hTokenIn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenBalance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "hTokenSupply",
+        "type": "uint256"
+      }
+    ],
+    "name": "hTokenSwap",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "bankroll",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "edge",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "b",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "k",
+        "type": "uint256"
+      }
+    ],
+    "name": "maxBet",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -160,8 +268,24 @@ module.exports = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "randomResult",
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "b",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "bet",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "edge",
+        "type": "uint256"
+      }
+    ],
+    "name": "ownersPayout",
     "outputs": [
       {
         "internalType": "uint256",
@@ -169,7 +293,74 @@ module.exports = [
         "type": "uint256"
       }
     ],
-    "stateMutability": "view",
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "choices",
+        "type": "uint256"
+      }
+    ],
+    "name": "pWin",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "p",
+        "type": "uint256"
+      }
+    ],
+    "name": "payOdds",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "b",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "bet",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "edge",
+        "type": "uint256"
+      }
+    ],
+    "name": "payout",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -223,6 +414,35 @@ module.exports = [
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "lo",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "choices",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "randomness",
+        "type": "uint256"
+      }
+    ],
+    "name": "result",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "choice",
         "type": "uint256"
       },
@@ -260,6 +480,35 @@ module.exports = [
     "name": "roll",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenIn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenBalance",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "hTokenSupply",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenSwap",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   }
 ];

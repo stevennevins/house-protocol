@@ -37,6 +37,21 @@ module.exports = [
         "internalType": "address",
         "name": "token",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "symbol",
+        "type": "string"
+      },
+      {
+        "internalType": "uint8",
+        "name": "decimals",
+        "type": "uint8"
       }
     ],
     "name": "deployNewPool",
@@ -87,6 +102,19 @@ module.exports = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "removePool",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
