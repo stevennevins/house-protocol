@@ -42,8 +42,9 @@ contract HDealer is VRFConsumerBase, HConst{
             * Requests randomness from a user-provided seed paid from contract balance
             */
             function roll(uint bet, uint edge, uint b, address token, uint256 userProvidedSeed) public {
-                     require((b > BONE.div(100)) && (b < BONE.mul(100)));
-                     require(bet > 10000);
+                     require((b >= BONE.div(100)) && (b <= BONE.mul(100)));
+                     require(bet >= 10000);
+                     //bet really justneeds to be greater than precision which is 100 in this case//
                      address pool = IPoolF.getPool(token);
                      require(pool!=address(0), "Not a valid pool");
                      require(IERC20(token).balanceOf(msg.sender)>bet, 'Balance too low');

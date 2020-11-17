@@ -1,8 +1,9 @@
 pragma solidity >=0.6.0 <0.7.0;
 
-import "./HNum.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 
-contract HTokenBase is HNum{
+contract HTokenBase {
+        using SafeMath for uint;
         mapping(address => uint) internal _balance;
         mapping(address => mapping(address=>uint)) internal _allowance;
         uint internal _totalSupply;
@@ -11,16 +12,16 @@ contract HTokenBase is HNum{
         event Transfer(address indexed src, address indexed dst, uint amt);
 
         function _mint(uint amt) internal{
-                _balance[address(this)] = hadd(_balance[address(this)], amt);
-                _totalSupply = hadd(_totalSupply, amt);
+                _balance[address(this)] = _balance[address(this)].add(amt);
+                _totalSupply = _totalSupply.add(amt);
 
                 emit Transfer(address(0),  address(this), amt);
         }
 
         function _burn(uint amt) internal{
                 require(_balance[address(this)]>=amt, "ERR_INSUFFICIENT_BALANCE");
-                _balance[address(this)] = hsub(_balance[address(this)], amt);
-                _totalSupply = hsub(_totalSupply, amt);
+                _balance[address(this)] = _balance[address(this)].sub(amt);
+                _totalSupply = _totalSupply.sub(amt);
 
                 emit Transfer(address(this), address(0), amt);
 
@@ -28,8 +29,8 @@ contract HTokenBase is HNum{
 
         function _move(address src, address dst, uint amt) internal{
                 require(_balance[src] >= amt, "ERR_INSUFFICIENT_BALANCE");
-                _balance[src] = hsub(_balance[src], amt);
-                _balance[dst] = hadd(_balance[dst], amt);
+                _balance[src] = _balance[src].sub(amt);
+                _balance[dst] = _balance[dst].add(amt);
 
                 emit Transfer(src, dst, amt);
         }

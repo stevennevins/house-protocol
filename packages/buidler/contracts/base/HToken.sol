@@ -41,7 +41,7 @@ contract HToken is HTokenBase, IERC20{
         }
 
         function increaseApproval(address dst, uint amt) external returns (bool){
-                _allowance[msg.sender][dst] = hadd(_allowance[msg.sender][dst], amt);
+                _allowance[msg.sender][dst] = _allowance[msg.sender][dst].add(amt);
                 emit Approval(msg.sender, dst, _allowance[msg.sender][dst]);
                 return true;
         }
@@ -51,7 +51,7 @@ contract HToken is HTokenBase, IERC20{
                 if (amt > oldValue){
                         _allowance[msg.sender][dst]=0;
                 } else {
-                        _allowance[msg.sender][dst] = hsub(oldValue, amt);
+                        _allowance[msg.sender][dst] = oldValue.sub(amt);
                 }
                 emit Approval(msg.sender, dst, _allowance[msg.sender][dst]);
                 return true;
@@ -66,7 +66,7 @@ contract HToken is HTokenBase, IERC20{
                 require(msg.sender == src || amt <= _allowance[src][msg.sender], "ERR_HTOKEN_BAD_CALLER");
                 _move(src, dst, amt);
                 if (msg.sender != src && _allowance[src][msg.sender]!=uint256(-1)){
-                        _allowance[src][msg.sender] = hsub(_allowance[src][msg.sender], amt);
+                        _allowance[src][msg.sender] = _allowance[src][msg.sender].sub(amt);
                         emit Approval(msg.sender, dst, _allowance[src][msg.sender]);
                 }
                 return true;

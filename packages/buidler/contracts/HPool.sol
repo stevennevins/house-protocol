@@ -1,26 +1,22 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 import "./base/HToken.sol";
-import "./base/HMath.sol";
+import "./base/HConst.sol";
 import "./base/IERC20.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
 import {IHPoolFactory} from "./base/IHPoolFactory.sol";
 import {IHDealerFactory} from "./base/IHDealerFactory.sol";
 
-contract HPool is HToken, HMath{
-        using SafeMath for uint;
+contract HPool is HToken, HConst{
         address public _underlying;
         bool private _mutex;
         IHPoolFactory public IPoolF;
         IHDealerFactory public IDealF;
-        uint public winnings;
         uint public _b;
         uint public _bet;
         uint public _step1;
         uint public _step2;
         uint public _step3;
  
-        bool public win;
         struct game {
                 address player;
                 uint bet;
@@ -52,6 +48,14 @@ contract HPool is HToken, HMath{
                 _pullUnderlying(_underlying, msg.sender, amt);
                 _mintPoolShare(amt);
                 _pushPoolShare(msg.sender, amt);
+        }
+        
+        function tokenSwap(uint tokenIn, uint tokenBalance, uint hTokenSupply) public pure returns (uint) {
+                return tokenIn.mul(hTokenSupply.div(tokenBalance));
+        }
+        
+        function hTokenSwap(uint hTokenIn, uint tokenBalance, uint hTokenSupply) public pure returns (uint) {
+                return hTokenIn.mul(tokenBalance.div(hTokenSupply));
         }
 
         function joinPool(uint tokenIn) external {
@@ -112,14 +116,13 @@ contract HPool is HToken, HMath{
         }
         
         function payout(bytes32 requestId) external {
-                _b = games[requestId].b;
+               _b = games[requestId].b;
                 address player = games[requestId].player;
                 _bet = games[requestId].bet;
                 _step1 = _b.add(BONE);
                 _step2 = _step1.mul(_bet);
                 _step3 = _step2.div(BONE);
-//                winnings = hdiv(hmul(bet, hadd(b, BONE)), BONE);
-                _pushUnderlying(_underlying, player, _bet);
+                _pushUnderlying(_underlying, player, games[requestId].bet);
         }
 
         function clear(bytes32 requestId) external {
