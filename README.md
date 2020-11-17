@@ -46,6 +46,32 @@ yarn chain
 
 ```
 
+This is a testing UI on Kovan
+
+Factor Page
+
+- Create LPs
+- Create Dealers
+- No token approvals required
+- Use decimals of underlying token for aesthetics
+
+LP Page 
+- Approve contract as spender in the token interface below the pool
+- Initialize pool to seed it with funds if you created a new pool
+- Swap in an out of the pool
+
+Game Page
+- Get link from faucet
+- Get Kovan Eth from a faucet
+- Approve the Game as a spender of Link
+- Approve the Pool you want to place bet against on the LP page as a spender of the underlying token
+- Place a bet
+        - Must be greater than 10000 wei
+        - b value 10 ^ 16 and 10 ^ 10
+        - b 10 ^ 16 = 99% odds 1.01x payout
+        - b 10 ^ 20 = 1% odds and 100x payout
+        - Edge is deducted from winning bets (Can be 0)
+ 
 ## Quickstart - Deploy your own
 
 First you will need a buidler account to deploy from
