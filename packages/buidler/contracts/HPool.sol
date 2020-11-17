@@ -16,7 +16,8 @@ contract HPool is HToken, HConst{
         uint public _step1;
         uint public _step2;
         uint public _step3;
- 
+        uint public _player_take;
+        uint public _dealer_take;
         struct game {
                 address player;
                 uint bet;
@@ -117,11 +118,13 @@ contract HPool is HToken, HConst{
         
         function payout(bytes32 requestId) external {
                _b = games[requestId].b;
+               uint precision = 100;
                 address player = games[requestId].player;
                 _bet = games[requestId].bet;
                 _step1 = _b.add(BONE);
                 _step2 = _step1.mul(_bet);
-                _step3 = _step2.div(BONE);
+                _player_take = _step2.mul(precision.sub(games[requestId].edge)).div(BONE).div(precision);
+                _dealer_take = _step2.mul(games[requestId].edge).div(precision).div(BONE).div(2);
                 _pushUnderlying(_underlying, player, games[requestId].bet);
         }
 
