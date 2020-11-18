@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link, Navlink } from "react-router-dom";
 import "antd/dist/antd.css";
 import { MailOutlined } from "@ant-design/icons";
 import { getDefaultProvider, InfuraProvider, JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
@@ -13,7 +13,7 @@ import { Header, Account, Faucet, Ramp, Contract, GasGauge, Address } from "./co
 import { Transactor } from "./helpers";
 import { parseEther, formatEther } from "@ethersproject/units";
 //import Hints from "./Hints";
-import { Pool, Game } from "./views"
+import { Pool, Game, Home, Play, Deal, Earn } from "./views"
 /*
     Welcome to 🏗 scaffold-eth !
 
@@ -105,24 +105,63 @@ function App() {
     <div className="App">
 
       {/* ✏️ Edit the header and change the title to your project name */}
-      <Header />
 
       <BrowserRouter>
-
-        <Menu style={{ textAlign:"center" }} selectedKeys={[route]} mode="horizontal">
-          <Menu.Item key="/">
-            <Link onClick={()=>{setRoute("/")}} to="/">Factory Page</Link>
-          </Menu.Item>
-          <Menu.Item key="/LP">
-            <Link onClick={()=>{setRoute("/LP")}} to="/LP">LP Page</Link>
-          </Menu.Item>
-         <Menu.Item key="/Game">
-            <Link onClick={()=>{setRoute("/Game")}} to="/Game">Game</Link>
-          </Menu.Item>
+        <Menu selectedKeys={[route]} mode="horizontal">
+         <Menu.Item key="/">
+                 <Link onClick={()=>{setRoute("/")}} to="/">Home</Link>
+         </Menu.Item>
+         <Menu.Item key="/Play">
+                 <Link onClick={()=>{setRoute("/Play")}} to="/Play">Play</Link>
+         </Menu.Item>
+         <Menu.Item key="/Deal">
+                 <Link onClick={()=>{setRoute("/Deal")}} to="/Deal">Deal</Link>
+         </Menu.Item>
+         <Menu.Item key="/Earn">
+                 <Link onClick={()=>{setRoute("/Earn")}} to="/Earn">Earn</Link>
+         </Menu.Item>
+                        
+         <Menu.SubMenu title="Testing-UI">
+                <Menu.Item key="/Factory">
+                        <Link onClick={()=>{setRoute("/Factory")}} to="/Factory">Factory Page</Link>
+                </Menu.Item>
+                <Menu.Item key="/LP">
+                        <Link onClick={()=>{setRoute("/LP")}} to="/LP">LP Page</Link>
+                </Menu.Item>
+                <Menu.Item key="/Game">
+                        <Link onClick={()=>{setRoute("/Game")}} to="/Game">Game</Link>
+                </Menu.Item>
+          </Menu.SubMenu>
         </Menu>
-
-        <Switch>
+       <Switch>
           <Route exact path="/">
+                  <Home/>
+
+          </Route>
+          <Route exact path="/Play">
+                 <Play
+                                address={address}
+                                userProvider={userProvider}
+                                mainnetProvider={mainnetProvider}
+                                localProvider={localProvider}
+                                yourLocalBalance={yourLocalBalance}
+                                price={price}
+                                tx={tx}
+                                writeContracts={writeContracts}
+                                readContracts={readContracts}
+                              />
+
+          </Route>
+          <Route exact path="/Deal">
+                  <Home/>
+
+          </Route>
+          <Route exact path="/Earn">
+                  <Home/>
+
+          </Route>
+
+          <Route exact path="/Factory">
             {/*
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
