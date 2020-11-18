@@ -46,26 +46,28 @@ yarn chain
 
 ```
 
-This is a testing UI on Kovan
+TestingUI
 
-Factory Page
+1. Factory Page
 
-- Create LPs
-- Create Dealers
-- No token approvals required
-- Use decimals of underlying token for aesthetics
+    - Create LPs
+    - Create Dealers
+    - No token approvals required
+    - Use decimals of underlying token for aesthetics
 
-LP Page 
-- Approve contract as spender in the token interface below the pool
-- Initialize pool to seed it with funds if you created a new pool
-- Swap in an out of the pool
+2. LP Page 
 
-Game Page
-- Get link from faucet
-- Get Kovan Eth from a faucet
-- Approve the Game as a spender of Link
-- Approve the Pool you want to place bet against on the LP page as a spender of the underlying token
-- Place a bet
+    - Approve contract as spender in the token interface below the pool
+    - Initialize pool to seed it with funds if you created a new pool
+    - Swap in an out of the pool
+
+3. Game Page
+
+    - Get link from faucet
+    - Get Kovan Eth from a faucet
+    - Approve the Game as a spender of Link
+    - Approve the Pool you want to place bet against on the LP page as a spender of the underlying token
+    - Place a bet
     - Must be greater than 10000 wei
     - b is a value 10 ^ 16 and 10 ^ 10
     - b equal to 10 ^ 16 = 99% odds 1.01x payout
