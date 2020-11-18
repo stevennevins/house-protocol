@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Row, Col, Button, List, Select, Divider, Input, InputNumber, Card, DatePicker, Slider, Switch, Progress, Spin } from "antd";
+import { Row, Descriptions, Col, Button, List, Select, Divider, Input, InputNumber, Card, DatePicker, Slider, Switch, Progress, Spin } from "antd";
 import { Address, Roll, AddressInput, Balance, Faucet, EtherInput } from "../components";
 import { useContractReader, useEventListener, useResolveName, useCustomContractLoader } from "../hooks";
 
@@ -38,14 +38,9 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
                   console.log('search:', val);
                   }
   return (
-          <div style = {{border:"1px solid #CCCCCC", padding:16, width:400, margin:"auto", marginTop:64}}>
-                <Divider />
-                <Address
-                        value={dealer}
-                        ensProvider={mainnetProvider}
-                        fontSize={16}
-                />
-       <Divider />
+          <div style = {{border:"1px solid #CCCCCC", padding:16, width:400, margin:"auto", marginTop:32}}>
+                       <Divider />
+            <Descriptions title="Choose your Dealer" />
             <Select
                               showSearch
                               style={{ width: 200 }}
@@ -63,8 +58,16 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
                                               <Option key={item[0]} value={item[0]}>{item[0]}</Option>
                                       ))}
             </Select>
- 
-                <Divider />
+                  <br />
+                  <br />
+                <Address
+                        value={dealer}
+                        ensProvider={mainnetProvider}
+                        fontSize={16}
+                />
+
+                                <Divider />
+                <Descriptions title="Select the Currency for Your Bet"/>
                 <Select
                               showSearch
                                   style={{ width: 200 }}
@@ -82,19 +85,20 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
                                               <Option key={item[0]} value={item[0]}>{item[0]}</Option>
                                       ))}
             </Select>
-                          <Divider />
+ 
+                                <br/>
+                <br/>
                 <Address
                         value={selected}
                         ensProvider={mainnetProvider}
                         fontSize={16}
                 />
-                <Divider />
-
                 <Balance
-                        address={address}
+                        address={selected}
                         provider={localProvider}
                         dollarMultiplier={price}
                 />
+
                 <Divider />
                 <Row>
                 <Col span={4}>

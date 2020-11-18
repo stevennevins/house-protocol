@@ -153,12 +153,30 @@ function App() {
 
           </Route>
           <Route exact path="/Deal">
-                  <Home/>
-
+                         <Deal
+                                address={address}
+                                userProvider={userProvider}
+                                mainnetProvider={mainnetProvider}
+                                localProvider={localProvider}
+                                yourLocalBalance={yourLocalBalance}
+                                price={price}
+                                tx={tx}
+                                writeContracts={writeContracts}
+                                readContracts={readContracts}
+                              />
           </Route>
           <Route exact path="/Earn">
-                  <Home/>
-
+                        <Earn
+                                address={address}
+                                userProvider={userProvider}
+                                mainnetProvider={mainnetProvider}
+                                localProvider={localProvider}
+                                yourLocalBalance={yourLocalBalance}
+                                price={price}
+                                tx={tx}
+                                writeContracts={writeContracts}
+                                readContracts={readContracts}
+                              />
           </Route>
 
           <Route exact path="/Factory">
