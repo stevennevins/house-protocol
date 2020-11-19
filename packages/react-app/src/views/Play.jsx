@@ -4,17 +4,20 @@ import { Address, Roll, AddressInput, Balance, Faucet, EtherInput } from "../com
 import { useContractReader, useEventListener, useResolveName, useCustomContractLoader } from "../hooks";
 
 import { parseEther, formatEther } from "@ethersproject/units";
+//https://ant.design/components/select/#components-select-demo-custom-dropdown-menu
+//https://codesandbox.io/s/vydi8?file=/index.js
 export default function Play({address, mainnetProvider, userProvider, localProvider, yourLocalBalance, price, tx, readContracts, writeContracts }) {
 //Contract info loading
         const poolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);
         const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
         const { Option } = Select;
         const [selected, setSelected] = useState(0);
+        
+        const [chance, setChance] = useState(0);
+        const [edge, setEdge] = useState(0);
         const [dealer, setDealer] = useState(0);
         const poolContractReader = useCustomContractLoader(localProvider, "HPool", selected);
         const poolContractWriter = useCustomContractLoader(userProvider, "HPool", selected);
-        const dealerReader = useCustomContractLoader(localProvider, "HDealer", dealer);
-        const dealerWriter = useCustomContractLoader(userProvider, "HDealer", dealer);
         function onChange(value) {
                 console.log('logging pool change');
                 console.log(value);
@@ -26,6 +29,15 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
                 setDealer(value);
         }
 
+        function chanceOnChange(value){
+                console.log('logging chance');
+                setChance(value);
+        }
+
+        function edgeOnChange(value){
+                console.log('logging edge');
+                setEdge(value);
+        }
 
         function onBlur() {
                 console.log('blur');
@@ -106,10 +118,16 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
                         Edge
                 </Col>
                 <Col span={12}>
-                <Slider min={0} max={100} />
+                <Slider 
+                        min={0} 
+                        max={100}
+                        onChange={edgeOnChange}
+                        value={edge}
+
+                        />
                 </Col>
                 <Col span = {4}>
-                        <InputNumber style={{marginLeft:16}}/>
+                        <InputNumber style={{marginLeft:16}} onChange={edgeOnChange} value={edge}/>
                 </Col>
                 </Row>
                 <Row>
@@ -117,10 +135,16 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
                                 Chance
                         </Col>
                 <Col span = {12}>
-                <Slider min={0} max={100} />
+                <Slider 
+                        min={0} 
+                        max={100}
+                        onChange={chanceOnChange}
+                        value={chance}
+
+                />
                 </Col>
                 <Col span={4}>
-                        <InputNumber style={{marginLeft:16}} />
+                        <InputNumber style={{marginLeft:16}} onChange={chanceOnChange} value={chance} />
                 </Col>
                 </Row>
                 <Divider />
@@ -130,13 +154,14 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
                   </Col>
                   <Col span={16}>
                   <Roll 
+                          userProvider={userProvider}
                           localProvider={localProvider}
-                          poolAddress={selected}
-                          dealerReader={dealerReader}
-                          dealerWriter={dealerWriter}
-                          edge = {0}
-                          chance = {99}
                           tx={tx}
+                          edge = {edge}
+                          chance = {chance}
+                          poolAddress={selected}
+                          dealerAddress={dealer}
+                          writeContracts={writeContracts}
                   >
                   </Roll>
                   </Col>

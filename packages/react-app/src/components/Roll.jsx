@@ -4,11 +4,11 @@ import Blockies from "react-blockies";
 import { SendOutlined, } from "@ant-design/icons";
 import { parseEther } from "@ethersproject/units";
 import { Transactor } from "../helpers";
+import {useCustomContractLoader} from "../hooks";
 import Wallet from "./Wallet";
 
-export default function Roll({ tx, edge, chance,  poolAddress, dealerReader, dealerWriter}) {
+export default function Roll({ userProvider, localProvider, tx, edge, chance,  poolAddress, dealerAddress, writeContracts}) {
   const [bet, setBet] = useState();
-
   let icon;
   if (poolAddress && typeof poolAddress.toLowerCase === "function") {
     icon = <Blockies seed={poolAddress.toLowerCase()} size={8} scale={4} />;
@@ -32,9 +32,8 @@ export default function Roll({ tx, edge, chance,  poolAddress, dealerReader, dea
     <Col>
             <Button
               onClick={() => {
-                       tx( 
-                  dealerWriter.roll('100000', '0','100000000000000000', poolAddress, '1'));
-                setBet("");
+                       tx(writeContracts.HDealer.attach(dealerAddress).roll('100000', '1','10000000000000000', '0xd3A691C852CDB01E281545A27064741F0B7f6825', '1'));
+                      setBet("");
               }}
               icon={<SendOutlined />}
             />
