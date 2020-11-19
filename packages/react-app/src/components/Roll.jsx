@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import { Row, Col, Input, Button, Tooltip } from "antd";
+import {Descriptions, Row, Col, Input, Button, Tooltip } from "antd";
 import Blockies from "react-blockies";
 import { SendOutlined, } from "@ant-design/icons";
 import { parseEther } from "@ethersproject/units";
 import { Transactor } from "../helpers";
 import Wallet from "./Wallet";
 
-export default function Roll(props) {
+export default function Roll({ tx, edge, chance,  poolAddress, dealerReader, dealerWriter}) {
   const [bet, setBet] = useState();
-
-  const poolAddress = '';
-  const dealerAddress = '';
- 
 
   let icon;
   if (poolAddress && typeof poolAddress.toLowerCase === "function") {
@@ -20,7 +16,6 @@ export default function Roll(props) {
     icon = <div />;
   }
 
-  const tx = Transactor(props.localProvider);
 
   return (
     <Row>
@@ -35,12 +30,10 @@ export default function Roll(props) {
       />
     </Col>
     <Col>
-             <Button
+            <Button
               onClick={() => {
-                tx({
-                  to: dealerAddress,
-                  value: parseEther(bet),
-                });
+                       tx( 
+                  dealerWriter.roll());
                 setBet("");
               }}
               icon={<SendOutlined />}

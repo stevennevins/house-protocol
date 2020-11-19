@@ -3,6 +3,7 @@ import { Row, Descriptions, Col, Button, List, Select, Divider, Input, InputNumb
 import { Address, Roll, AddressInput, Balance, Faucet, EtherInput } from "../components";
 import { useContractReader, useEventListener, useResolveName, useCustomContractLoader } from "../hooks";
 
+import { parseEther, formatEther } from "@ethersproject/units";
 export default function Play({address, mainnetProvider, userProvider, localProvider, yourLocalBalance, price, tx, readContracts, writeContracts }) {
 //Contract info loading
         const poolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);
@@ -128,12 +129,25 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
                           Bet Size
                   </Col>
                   <Col span={16}>
-                  <Roll />
+                  <Roll 
+                          localProvider={localProvider}
+                          poolAddress={selected}
+                          dealerReader={dealerReader}
+                          dealerWriter={dealerWriter}
+                          edge = {0}
+                          chance = {99}
+                          tx={tx}
+                  >
+                  </Roll>
                   </Col>
                 </Row>
                   <Divider />
-                  <Button>Approve Pool</Button>
-                  <Button>Approve Link</Button>
+                  <Button onClick={ ()=>{
+                  tx( 
+                  writeContracts.LinkTokenInterface.approve(dealer,'1000000000000000000000000000'));}}>Approve Link</Button>
+                  <Button onClick={ ()=>{
+                  tx( 
+                  writeContracts.IERC20.approve(selected, '1000000000000000000000000000000'));}}>Approve Pool</Button>
 
           </div>
   );
