@@ -33,7 +33,7 @@ export default function Roll({ tx, edge, chance,  poolAddress, dealerReader, dea
             <Button
               onClick={() => {
                        tx( 
-                  dealerWriter.roll());
+                  dealerWriter.roll('100000', '0','100000000000000000', poolAddress, '1'));
                 setBet("");
               }}
               icon={<SendOutlined />}
