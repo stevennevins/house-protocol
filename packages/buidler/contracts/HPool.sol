@@ -11,24 +11,17 @@ contract HPool is HToken, HConst{
         bool private _mutex;
         IHPoolFactory public IPoolF;
         IHDealerFactory public IDealF;
-        uint public _b;
-        uint public _bet;
-        uint public _step1;
-        uint public _step2;
-        uint public _step3;
-        uint public _player_take;
-        uint public _dealer_take;
         struct game {
                 address player;
                 uint bet;
                 uint b;
                 uint edge;
                 address dealer;
-                }
+        }
 
         mapping(bytes32 => game) public games;
-
-        constructor(address token, address dealerFactory, string memory symbol, string memory name, uint8 decimals) public{
+        
+        constructor(address token, address dealerFactory, string memory symbol, string memory name, uint8 decimals) public {
                 IPoolF = IHPoolFactory(msg.sender);
                 IDealF = IHDealerFactory(dealerFactory);
                 _underlying = token;
@@ -117,18 +110,18 @@ contract HPool is HToken, HConst{
         }
         
         function payout(bytes32 requestId) external {
-               _b = games[requestId].b;
+                require(IDealF.isDealer(msg.sender));
                uint precision = 100;
-                address player = games[requestId].player;
-                _bet = games[requestId].bet;
-                _step1 = _b.add(BONE);
-                _step2 = _step1.mul(_bet);
-                _player_take = _step2.mul(precision.sub(games[requestId].edge)).div(BONE).div(precision);
-                _dealer_take = _step2.mul(games[requestId].edge).div(precision).div(BONE).div(2);
-                _pushUnderlying(_underlying, player, games[requestId].bet);
+                uint _step1 = games[requestId].b.add(BONE);
+                uint _step2 = _step1.mul(games[requestId].bet);
+                uint _player_take = _step2.mul(precision.sub(games[requestId].edge)).div(BONE).div(precision);
+                uint _dealer_take = _step2.mul(games[requestId].edge).div(precision).div(BONE).div(2);
+                _pushUnderlying(_underlying, games[requestId].player, _player_take);
+                _pushUnderlying(_underlying, msg.sender, _dealer_take);
         }
 
         function clear(bytes32 requestId) external {
+                require(IDealF.isDealer(msg.sender));
                 delete games[requestId];
         }
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Descriptions, Row, Col, Input, Button, Tooltip } from "antd";
+import { InputNumber, Descriptions, Row, Col, Input, Button, Tooltip } from "antd";
 import Blockies from "react-blockies";
 import { SendOutlined, } from "@ant-design/icons";
 import { parseEther } from "@ethersproject/units";
@@ -15,24 +15,27 @@ export default function Roll({ userProvider, localProvider, tx, edge, chance,  p
   } else {
     icon = <div />;
   }
+        function onBetChange(value){
+                console.log('logging change in bet');
+                console.log(JSON.stringify(value));
+          setBet(value.toString());
+
+  }
 
 
   return (
     <Row>
     <Col span={20}>
-      <Input
+      <InputNumber
         placeholder="1"
         prefix={icon}
-        value={bet}
-        onChange={e => {
-          setBet(e.target.value);
-        }}
+        onChange={onBetChange}
       />
     </Col>
     <Col>
             <Button
               onClick={() => {
-                       tx(writeContracts.HDealer.attach(dealerAddress).roll('100000', '1','10000000000000000', '0xd3A691C852CDB01E281545A27064741F0B7f6825', '1'));
+                       tx(writeContracts.HDealer.attach(dealerAddress).roll({bet}, {edge},'10000000000000000', '0xd3A691C852CDB01E281545A27064741F0B7f6825', '1'));
                       setBet("");
               }}
               icon={<SendOutlined />}

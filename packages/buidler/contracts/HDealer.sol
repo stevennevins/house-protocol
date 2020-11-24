@@ -62,7 +62,7 @@ contract HDealer is VRFConsumerBase, HConst{
             function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
                     IPool = IHPool(games[requestId].pool); 
                     if (BONE > randomness.mod(BONE.add(games[requestId].b))) IPool.payout(requestId);
-                    IPool.clear(requestId);
+                    //IPool.clear(requestId);
             }
 
 }

@@ -186,45 +186,6 @@ module.exports = [
   },
   {
     "inputs": [],
-    "name": "_b",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "_bet",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "_dealer_take",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "_decimals",
     "outputs": [
       {
@@ -244,58 +205,6 @@ module.exports = [
         "internalType": "string",
         "name": "",
         "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "_player_take",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "_step1",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "_step2",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "_step3",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -532,35 +441,6 @@ module.exports = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "hTokenIn",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "tokenBalance",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "hTokenSupply",
-        "type": "uint256"
-      }
-    ],
-    "name": "hTokenSwap",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "dst",
         "type": "address"
@@ -645,35 +525,6 @@ module.exports = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "tokenIn",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "tokenBalance",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "hTokenSupply",
-        "type": "uint256"
-      }
-    ],
-    "name": "tokenSwap",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "pure",
     "type": "function"
   },
   {
