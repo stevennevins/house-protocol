@@ -36,7 +36,8 @@ export default function Roll({ userProvider, localProvider, tx, edge, chance,  p
             <Button
               onClick={() => {
                       console.log(bet);
-                      console.log(JSON.stringify(edge)); tx(writeContracts.HDealer.attach(dealerAddress).roll(bet, JSON.stringify(edge),'10000000000000000', '0xd3A691C852CDB01E281545A27064741F0B7f6825', '1'));
+//                      console.log(JSON.stringify(edge)); 
+                      tx(writeContracts.HDealer.attach(dealerAddress).roll('10000', '0','10000000000000000', '0xd3A691C852CDB01E281545A27064741F0B7f6825', '1'));
                       setBet("");
               }}
               icon={<SendOutlined />}

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Row, Descriptions, Col, Button, List, Select, Divider, Input, InputNumber, Card, DatePicker, Slider, Switch, Progress, Spin } from "antd";
-import { Address, Roll, AddressInput, Balance, Faucet, EtherInput } from "../components";
+import { E20Balance, Address, Roll, AddressInput, Balance, Faucet, EtherInput, TokenBalance } from "../components";
 import { useContractReader, useEventListener, useResolveName, useCustomContractLoader } from "../hooks";
 
 import { parseEther, formatEther } from "@ethersproject/units";
@@ -101,6 +101,14 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
  
                                 <br/>
                 <br/>
+               
+                <E20Balance
+                        address={selected}
+                        provider={localProvider}
+                        dollarMultiplier={price}
+                />
+
+
                 <Address
                         value={selected}
                         ensProvider={mainnetProvider}
@@ -168,11 +176,17 @@ export default function Play({address, mainnetProvider, userProvider, localProvi
                 </Row>
                   <Divider />
                   <Button onClick={ ()=>{
-                  tx( 
-                  writeContracts.LinkTokenInterface.approve(dealer,'1000000000000000000000000000'));}}>Approve Link</Button>
+                  tx(writeContracts.LinkTokenInterface.approve(dealer,'1000000000000000000000000000'));
+                  }
+                  }
+                  >Approve Link
+                  </Button>
                   <Button onClick={ ()=>{
-                  tx( 
-                  writeContracts.IERC20.approve(selected, '1000000000000000000000000000000'));}}>Approve Pool</Button>
+                  tx(writeContracts.IERC20.approve(selected, '1000000000000000000000000000000'));
+                  }
+                          }
+                  >Approve Pool
+                  </Button>
 
           </div>
   );
