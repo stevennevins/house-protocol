@@ -27,6 +27,3 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
-
-# Storybook Components
-packages/react-app/.storybook
