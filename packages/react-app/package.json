@@ -49,8 +49,15 @@
     "web3modal": "^1.9.1"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.1.9",
+    "@storybook/addon-essentials": "^6.1.9",
+    "@storybook/addon-links": "^6.1.9",
+    "@storybook/node-logger": "^6.1.9",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.1.9",
     "@testing-library/dom": "^6.12.2",
     "@types/react": "^16.9.19",
+    "babel-loader": "8.1",
     "chalk": "^4.1.0",
     "eslint": "^7.5.0",
     "eslint-config-airbnb": "^18.2.0",
@@ -74,6 +81,8 @@
     "ipfs": "node ./scripts/ipfs.js",
     "surge": "surge ./build",
     "s3": "node ./scripts/s3.js",
-    "ship": "yarn surge"
+    "ship": "yarn surge",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   }
 }
