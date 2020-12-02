@@ -11,17 +11,18 @@ export default function Play({ address, mainnetProvider, userProvider, localProv
         const poolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);
         const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
         const { Option } = Select;
-        const [selected, setSelected] = useState(0);
-
+        const [pool, setPool] = useState(0);
+        const [erc, setERC] = useState(0);
         const [chance, setChance] = useState(0);
         const [edge, setEdge] = useState(0);
         const [dealer, setDealer] = useState(0);
-        const poolContractReader = useCustomContractLoader(localProvider, "HPool", selected);
-        const poolContractWriter = useCustomContractLoader(userProvider, "HPool", selected);
-        function onChange(value) {
+
+        function onChange(key, value) {
                 console.log('logging pool change');
-                console.log(value);
-                setSelected(value);
+                console.log('erc20: ', value.value);
+                console.log("pool: ", value.key);
+                setERC(value.value);
+                setPool(value.key);
         }
         function dealOnChange(value) {
                 console.log('logging dealer change');
@@ -84,7 +85,7 @@ export default function Play({ address, mainnetProvider, userProvider, localProv
                         <Select
                                 showSearch
                                 style={{ width: 200 }}
-                                placeholder="Selected a Liquidity Pool"
+                                placeholder="pool a Liquidity Pool"
                                 optionFilterProp="children"
                                 onChange={onChange}
                                 onFocus={onFocus}
@@ -94,8 +95,9 @@ export default function Play({ address, mainnetProvider, userProvider, localProv
                                         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                 }
                         >
-                                {poolMinted.map(item => (
-                                        <Option key={item[0]} value={item[0]}>{item[0]}</Option>
+                                {
+                                poolMinted.map(item => (
+                                        <Option key={item[0]} value={item[1]}>{item[0]}</Option>
                                 ))}
                         </Select>
 
@@ -103,19 +105,19 @@ export default function Play({ address, mainnetProvider, userProvider, localProv
                         <br />
 
                         <E20Balance
-                                address={selected}
+                                address={pool}
                                 provider={localProvider}
                                 dollarMultiplier={price}
                         />
 
 
                         <Address
-                                value={selected}
+                                value={pool}
                                 ensProvider={mainnetProvider}
                                 fontSize={16}
                         />
                         <Balance
-                                address={selected}
+                                address={pool}
                                 provider={localProvider}
                                 dollarMultiplier={price}
                         />
@@ -167,7 +169,7 @@ export default function Play({ address, mainnetProvider, userProvider, localProv
                                                 tx={tx}
                                                 edge={edge}
                                                 chance={chance}
-                                                poolAddress={selected}
+                                                poolAddress={pool}
                                                 dealerAddress={dealer}
                                                 writeContracts={writeContracts}
                                         >
@@ -183,8 +185,8 @@ export default function Play({ address, mainnetProvider, userProvider, localProv
                         >Approve Link
                         </Button>
                         <Button onClick={() => {
-                                console.log(selected)
-                                tx(writeContracts.IERC20.approve(selected, '10000000000000000000000000000000000000'));
+                                console.log(pool)
+                                tx(writeContracts.IERC20.approve(pool, '10000000000000000000000000000000000000'));
                         }
                         }
                         >Approve Pool
