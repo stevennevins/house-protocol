@@ -14,6 +14,7 @@ Big picture ideas:
 
 ```bash 
 git clone https://github.com/dmintercept/house-protocol.git 
+
 cd house-protocol 
 ```
 >You might want to use tmux to manage the active terminal windows
@@ -47,10 +48,8 @@ yarn start
 ## Quickstart - Deploy your own
 
 First you will need a buidler account to deploy from
-
-```
+```bash
 yarn run generate
-
 ```
 
 Once you have your deployer account you will need to get some Kovan Eth : https://faucet.kovan.network/
@@ -60,9 +59,7 @@ Once you have Kovan eth in your deployer account you are ready to deploy the con
 Navigate to the scripts directory in the builder package:
 
 ```bash
-
 house-protocol/buidler/scripts
-
 ```
 
 Edit the deploy script to deploy either part or all of the protocol.
@@ -77,12 +74,6 @@ If you want your own copy of the protocol to play around with you will need to a
 The deploy script will compile, deploy, and publish the contract info into the react application
 
 > in a third terminal window:
-
 ```bash
-
 yarn deploy
-
 ```
-
-
-> 
