@@ -2,7 +2,7 @@
 
 House Protocol is a peer-to-pool protocol built on Ethereum and Chainlink.  House protocol has 3 types of participants: Players, Dealers (HDealer), and Bankroll Liquidity Providers (HPools & HTokens).  Players place bets with ERC20 tokens against HPool holding that ERC20 as collateral using an HDealer to route the bet to the appropriate HPool. The HDealer that routes the bet shares the House edge 50:50 with the HPool that receives the bet commitment.  Interest accumulates in real-time as bets are placed and interest on deposited collateral is tracked via HTokens, which track the owner's share of the collateral in the HPool.
 
-Big picture ideas:
+tldr:
 
 1. Imagine a casino accepting any ERC20 as a bet
 
