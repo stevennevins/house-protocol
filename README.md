@@ -13,27 +13,16 @@ Big picture ideas:
 ## Quickstart - Frontend
 
 ```bash 
-
 git clone https://github.com/dmintercept/house-protocol.git 
-
 cd house-protocol 
-
 ```
-
 >You might want to use tmux to manage the active terminal windows
-
 ```bash
-
 yarn install
-
 ```
-
 > you might get node-gyp errors, ignore them and run:
-
 ```bash
-
 yarn start
-
 ```
 
 1. Play
