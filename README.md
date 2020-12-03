@@ -36,14 +36,6 @@ yarn start
 
 ```
 
-> in a second terminal window:
-
-```bash
-
-yarn chain
-
-```
-
 1. Game
     - Get link from [faucet](https://kovan.chain.link/) 
     - Get Kovan Eth from a [faucet](https://faucet.kovan.network/)
