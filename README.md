@@ -10,7 +10,7 @@ House Protocol is a peer-to-pool protocol built on Ethereum and Chainlink.  Hous
 
 3. Anyone who can capture a niche of player experience can deploy an HDealer from the HDealerFactory and earn revenue without having to take on the risk of raising and securing a bankroll
 
-4. Anyone freely swap in or out of the HPool to earn a share of house edge from their collateral
+4. Anyone can swap in or out of the HPool to earn a share of house edge from their collateral
 
 ## Quickstart - Frontend
 
