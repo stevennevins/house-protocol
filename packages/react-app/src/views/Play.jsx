@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Row, Descriptions, Col, Button, List, Select, Divider, Input, InputNumber, Card, DatePicker, Slider, Switch, Progress, Spin } from "antd";
-import { E20Balance, Address, Roll, AddressInput, Balance, Faucet, EtherInput, TokenBalance } from "../components";
+import { E20Balance, Address, Roll, AddressInput, Balance, Faucet, EtherInput } from "../components";
 import { useContractReader, useEventListener, useResolveName, useCustomContractLoader } from "../hooks";
 
 import { parseEther, formatEther } from "@ethersproject/units";
@@ -16,6 +16,7 @@ export default function Play({ address, mainnetProvider, userProvider, localProv
         const [chance, setChance] = useState(0);
         const [edge, setEdge] = useState(0);
         const [dealer, setDealer] = useState(0);
+        const e20Contract = useCustomContractLoader(localProvider, 'IERC20', erc);
 
         function onChange(key, value) {
                 console.log('logging pool change');
@@ -105,23 +106,18 @@ export default function Play({ address, mainnetProvider, userProvider, localProv
                         <br />
 
                         <E20Balance
-                                address={pool}
+                                contract={e20Contract}
+                                address={address}
                                 provider={localProvider}
-                                dollarMultiplier={price}
                         />
 
 
                         <Address
-                                value={pool}
+                                value={address}
                                 ensProvider={mainnetProvider}
                                 fontSize={16}
                         />
-                        <Balance
-                                address={pool}
-                                provider={localProvider}
-                                dollarMultiplier={price}
-                        />
-
+ 
                         <Divider />
                         <Row>
                                 <Col span={4}>
@@ -170,6 +166,7 @@ export default function Play({ address, mainnetProvider, userProvider, localProv
                                                 edge={edge}
                                                 chance={chance}
                                                 poolAddress={pool}
+                                                erc20Address={erc}
                                                 dealerAddress={dealer}
                                                 writeContracts={writeContracts}
                                         >

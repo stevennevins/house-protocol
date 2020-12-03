@@ -7,7 +7,7 @@ import { Transactor } from "../helpers";
 import { useCustomContractLoader } from "../hooks";
 import Wallet from "./Wallet";
 
-export default function Roll({ userProvider, localProvider, tx, edge, chance, poolAddress, dealerAddress, writeContracts }) {
+export default function Roll({ userProvider, localProvider, tx, edge, chance, poolAddress, erc20Address, dealerAddress, writeContracts }) {
   const [bet, setBet] = useState();
   let icon;
   if (poolAddress && typeof poolAddress.toLowerCase === "function") {
