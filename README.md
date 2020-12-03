@@ -1,6 +1,6 @@
 ## Quickstart - Overview
 
-House Protocol is a peer-to-pool protocol built on Ethereum and Chainlink.  House protocol has 3 types of participants: Players, Dealers (HDealer), and Bankroll Liquidity Providers (HPools).  Any player can place a bet against a deployed HPool via any deployed HDealer to route their bet. The HDealer that routes the bet shares the House edge 50:50 with the HPool that receives the commitment.  Interest accumulates in real-time as bets are placed and interest on deposited collateral is tracked via HTokens, which track the owner's share of the collateral in the HPool.
+House Protocol is a peer-to-pool protocol built on Ethereum and Chainlink.  House protocol has 3 types of participants: Players, Dealers (HDealer), and Bankroll Liquidity Providers (HPools & HTokens).  Players place bets with ERC20 tokens against HPool holding that ERC20 as collateral using an HDealer to route the bet to the appropriate HPool. The HDealer that routes the bet shares the House edge 50:50 with the HPool that receives the bet commitment.  Interest accumulates in real-time as bets are placed and interest on deposited collateral is tracked via HTokens, which track the owner's share of the collateral in the HPool.
 
 Big picture ideas:
 
@@ -48,8 +48,8 @@ yarn chain
     - Get link from [faucet](https://kovan.chain.link/) 
     - Get Kovan Eth from a [faucet](https://faucet.kovan.network/)
     - Get wBTC on Kovan from Compound [faucet](https://app.compound.finance/)
-    - Approve the Game as a spender of Link
-    - Approve the Pool as spender of the underlying token
+    - Approve the HDealer as a spender of Link
+    - Approve the HPool as spender of the ERC20 token
     - Place a bet greater than 10000 wei (this is for precision)
     - Edge is deducted from winning bets and given to HPool and HDealer (Can be 0)
 
