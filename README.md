@@ -36,7 +36,7 @@ yarn start
 
 ```
 
-1. Game
+1. Play
     - Get link from [faucet](https://kovan.chain.link/) 
     - Get Kovan Eth from a [faucet](https://faucet.kovan.network/)
     - Get wBTC on Kovan from Compound [faucet](https://app.compound.finance/)
