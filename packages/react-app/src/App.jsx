@@ -108,9 +108,6 @@ function App() {
 
       <BrowserRouter>
         <Menu selectedKeys={[route]} mode="horizontal">
-         <Menu.Item key="/">
-                 <Link onClick={()=>{setRoute("/")}} to="/">Home</Link>
-         </Menu.Item>
          <Menu.Item key="/Play">
                  <Link onClick={()=>{setRoute("/Play")}} to="/Play">Play</Link>
          </Menu.Item>
@@ -135,7 +132,17 @@ function App() {
         </Menu>
        <Switch>
           <Route exact path="/">
-                  <Home/>
+          <Play
+                                address={address}
+                                userProvider={userProvider}
+                                mainnetProvider={mainnetProvider}
+                                localProvider={localProvider}
+                                yourLocalBalance={yourLocalBalance}
+                                price={price}
+                                tx={tx}
+                                writeContracts={writeContracts}
+                                readContracts={readContracts}
+                              />
 
           </Route>
           <Route exact path="/Play">

@@ -1,31 +1,23 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Row, Descriptions, Col, Button, List, Select, Divider, Input, InputNumber, Card, DatePicker, Slider, Switch, Progress, Spin } from "antd";
-import { Address, Roll, AddressInput, Balance, Faucet, EtherInput } from "../components";
+import { Address, Roll, AddressInput, Balance, Faucet, EtherInput, E20Balance } from "../components";
 import { useContractReader, useEventListener, useResolveName, useCustomContractLoader } from "../hooks";
 
-export default function Earn({address, mainnetProvider, userProvider, localProvider, yourLocalBalance, price, tx, readContracts, writeContracts }) {
-//Contract info loading
+export default function Earn({ address, mainnetProvider, userProvider, localProvider, yourLocalBalance, price, tx, readContracts, writeContracts }) {
+        //Contract info loading
         const poolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);
-        const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
         const { Option } = Select;
-        const [selected, setSelected] = useState(0);
-        const [dealer, setDealer] = useState(0);
-        const poolContractReader = useCustomContractLoader(localProvider, "HPool", selected);
-        const poolContractWriter = useCustomContractLoader(userProvider, "HPool", selected);
-        const dealerReader = useCustomContractLoader(localProvider, "HDealer", dealer);
-        const dealerWriter = useCustomContractLoader(userProvider, "HDealer", dealer);
-        function onChange(value) {
+        const [pool, setPool] = useState(0);
+        const [erc, setERC] = useState(0);
+        const e20Contract = useCustomContractLoader(localProvider, 'IERC20', erc);
+
+        function onChange(key, value) {
                 console.log('logging pool change');
-                console.log(value);
-                setSelected(value);
+                console.log('erc20: ', value.value);
+                console.log("pool: ", value.key);
+                setERC(value.value);
+                setPool(value.key);
         }
-        function dealOnChange(value) {
-                console.log('logging dealer change');
-                console.log(value);
-                setDealer(value);
-        }
-
-
         function onBlur() {
                 console.log('blur');
         }
@@ -35,49 +27,70 @@ export default function Earn({address, mainnetProvider, userProvider, localProvi
         }
 
         function onSearch(val) {
-                  console.log('search:', val);
-                  }
-  return (
-          <div style = {{border:"1px solid #CCCCCC", padding:16, width:400, margin:"auto", marginTop:32}}>
-                       <Divider />
+                console.log('search:', val);
+        }
+        return (
+                <div style={{ border: "1px solid #CCCCCC", padding: 16, width: 400, margin: "auto", marginTop: 32 }}>
+                        <Divider />
 
-                                <Divider />
-                <Descriptions title="Modify Your Bankroll Positions"/>
-                <Select
-                              showSearch
-                                  style={{ width: 200 }}
-                                 placeholder="Selected a Liquidity Pool"
-                                 optionFilterProp="children"
-                                 onChange={onChange}
-                           onFocus={onFocus}
-                           onBlur={onBlur}
-                           onSearch={onSearch}
-                                 filterOption={(input, option) =>
-                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                        }
-                                    >
-                                      {poolMinted.map(item=>(
-                                              <Option key={item[0]} value={item[0]}>{item[0]}</Option>
-                                      ))}
-            </Select>
- 
-                                <br/>
-                <br/>
-                <Address
-                        value={selected}
-                        ensProvider={mainnetProvider}
-                        fontSize={16}
-                />
-                <Balance
-                        address={selected}
-                        provider={localProvider}
-                        dollarMultiplier={price}
-                />
+                        <Descriptions title="Modify Your Bankroll Positions" />
+                        <Select
+                                showSearch
+                                style={{ width: 200 }}
+                                placeholder="pool a Liquidity Pool"
+                                optionFilterProp="children"
+                                onChange={onChange}
+                                onFocus={onFocus}
+                                onBlur={onBlur}
+                                onSearch={onSearch}
+                                filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+                                {poolMinted.map(item => (<Option key={item[0]} value={item[1]}>{item[0]}</Option>))}
+                        </Select>
 
-                <Divider />
-                  <Divider />
-                  <Button>Approve Pool</Button>
+                        <br />
+                        <br />
+                        <E20Balance
+                                contract={e20Contract}
+                                address={address}
+                                provider={localProvider}
+                        />
+                        <Address
+                                value={address}
+                                ensProvider={mainnetProvider}
+                                fontSize={16}
+                        />
+                        <Balance
+                                address={pool}
+                                provider={localProvider}
+                                dollarMultiplier={price}
+                        />
 
-          </div>
-  );
+                        <Divider />
+                        <Row>
+                                <Col span={16}>
+                                        <Input></Input>
+                                </Col>
+                                <Col>
+                                        <Button>SwapIn</Button>
+                                </Col>
+                        </Row>
+                        <br></br>
+                        <Row>
+                                <Col span={16}>
+                                        <Input></Input>
+                                </Col>
+                                <Col>
+                                        <Button>SwapOut</Button>
+                                </Col>
+                        </Row>
+                        <Divider />
+                        <Button onClick={() => {
+                                console.log(pool)
+                                tx(writeContracts.IERC20.approve(pool, '10000000000000000000000000000000000000'));
+                        }
+                        }
+                        >Approve Pool
+                        </Button>
+                </div>
+        );
 }
