@@ -3,7 +3,7 @@ import { Descriptions, Select, Divider } from "antd";
 import { Address, Balance } from "../components";
 import { useEventListener } from "../hooks";
 
-export default function Deal({ mainnetProvider, userProvider, localProvider, price, readContracts }) {
+export default function Deal({ mainnetProvider, localProvider, price, readContracts }) {
   // Contract info loading
   const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
   const { Option } = Select;

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useState } from "react";
 import { WalletOutlined, QrcodeOutlined, SendOutlined, KeyOutlined } from "@ant-design/icons";
 import { Tooltip, Spin, Modal, Button, Typography } from "antd";
@@ -96,8 +97,9 @@ export default function Wallet(props) {
       </Button>
     );
   } else if (pk) {
-    let pk = localStorage.getItem("metaPrivateKey");
-    let wallet = new ethers.Wallet(pk);
+    // eslint-disable-next-line no-shadow
+    const pk = localStorage.getItem("metaPrivateKey");
+    const wallet = new ethers.Wallet(pk);
 
     if (wallet.address !== selectedAddress) {
       display = (
@@ -125,10 +127,10 @@ export default function Wallet(props) {
           </i>
           <QR
             value={"https://xdai.io/" + pk}
-            size={"450"}
-            level={"H"}
-            includeMargin={true}
-            renderAs={"svg"}
+            size="450"
+            level="H"
+            includeMargin
+            renderAs="svg"
             imageSettings={{ excavate: false }}
           />
 

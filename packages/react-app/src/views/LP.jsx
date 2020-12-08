@@ -4,38 +4,37 @@ import { Address, CustomContract } from "../components";
 import { useEventListener } from "../hooks";
 
 export default function Pool({ mainnetProvider, userProvider, localProvider, readContracts }) {
-
-  //📟 Listen for broadcast events
+  // 📟 Listen for broadcast events
   const PoolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);
-  console.log("📟 Pool Minted:", PoolMinted)
+  console.log("📟 Pool Minted:", PoolMinted);
   const { Option } = Select;
   const [selected, setSelected] = useState(0);
 
-  const erc20 = PoolMinted.filter(event => event[0] == selected)[0] || { 0: '', 1: '' };
-  console.log('logging erc20');
+  const erc20 = PoolMinted.filter(event => event[0] === selected)[0] || { 0: "", 1: "" };
+  console.log("logging erc20");
   console.log(erc20);
   function onChange(value) {
-    console.log('logging pool change');
+    console.log("logging pool change");
     console.log(value);
     setSelected(value);
   }
 
   function onBlur() {
-    console.log('blur');
+    console.log("blur");
   }
 
   function onFocus() {
-    console.log('focus');
+    console.log("focus");
   }
 
   function onSearch(val) {
-    console.log('search:', val);
+    console.log("search:", val);
   }
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
   console.log("🏷 Resolved austingriffith.eth as:",addressFromENS)
   */
-  const blockExplorer = "https://etherscan.io/"
+  const blockExplorer = "https://etherscan.io/";
 
   return (
     <div>
@@ -49,12 +48,12 @@ export default function Pool({ mainnetProvider, userProvider, localProvider, rea
         onFocus={onFocus}
         onBlur={onBlur}
         onSearch={onSearch}
-        filterOption={(input, option) =>
-          option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        }
+        filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
       >
         {PoolMinted.map(item => (
-          <Option key={item[0]} value={item[0]}>{item[0]}</Option>
+          <Option key={item[0]} value={item[0]}>
+            {item[0]}
+          </Option>
         ))}
       </Select>
       {/*
@@ -74,17 +73,13 @@ export default function Pool({ mainnetProvider, userProvider, localProvider, rea
         <List
           bordered
           dataSource={PoolMinted}
-          renderItem={(item) => {
+          renderItem={item => {
             return (
               <List.Item key={item.blockNumber + "_" + item.sender}>
-                <Address
-                  value={item[0]}
-                  ensProvider={mainnetProvider}
-                  fontSize={16}
-                /> =>
+                <Address value={item[0]} ensProvider={mainnetProvider} fontSize={16} />
                 {item[1]}
               </List.Item>
-            )
+            );
           }}
         />
       </div>
@@ -95,7 +90,6 @@ export default function Pool({ mainnetProvider, userProvider, localProvider, rea
         blockExplorer={blockExplorer}
         address={erc20[1]}
       />
-
     </div>
   );
 }
