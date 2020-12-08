@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/accessible-emoji */
@@ -22,7 +23,7 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
     let buttons = "";
     if (input.type == "bytes32") {
       buttons = (
-        <Tooltip placement="right" title={"to bytes32"}>
+        <Tooltip placement="right" title="to bytes32">
           <div
             type="dashed"
             style={{ cursor: "pointer" }}
@@ -44,7 +45,7 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
       );
     } else if (input.type == "bytes") {
       buttons = (
-        <Tooltip placement="right" title={"to hex"}>
+        <Tooltip placement="right" title="to hex">
           <div
             type="dashed"
             style={{ cursor: "pointer" }}
@@ -85,7 +86,7 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
   });
 
   const txValueInput = (
-    <div style={{ margin: 2 }} key={"txValueInput"}>
+    <div style={{ margin: 2 }} key="txValueInput">
       <Input
         placeholder="transaction value"
         onChange={e => setTxValue(e.target.value)}
@@ -94,12 +95,12 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
           <div>
             <Row>
               <Col span={16}>
-                <Tooltip placement="right" title={" * 10^18 "}>
+                <Tooltip placement="right" title=" * 10^18 ">
                   <div
                     type="dashed"
                     style={{ cursor: "pointer" }}
                     onClick={async () => {
-                      let floatValue = parseFloat(txValue);
+                      const floatValue = parseFloat(txValue);
                       if (floatValue) setTxValue("" + floatValue * 10 ** 18);
                     }}
                   >
@@ -108,7 +109,7 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
                 </Tooltip>
               </Col>
               <Col span={16}>
-                <Tooltip placement="right" title={"number to hex"}>
+                <Tooltip placement="right" title="number to hex">
                   <div
                     type="dashed"
                     style={{ cursor: "pointer" }}
@@ -138,12 +139,12 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
       <Button style={{ marginLeft: -32 }}>Send💸</Button>
     );
   inputs.push(
-    <div style={{ cursor: "pointer", margin: 2 }} key={"goButton"}>
+    <div style={{ cursor: "pointer", margin: 2 }} key="goButton">
       <Input
         onChange={e => setReturnValue(e.target.value)}
         defaultValue=""
         bordered={false}
-        disabled={true}
+        disabled
         value={returnValue}
         suffix={
           <div
