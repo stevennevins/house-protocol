@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from "react";
 import { formatEther } from "@ethersproject/units";
 import { usePoller } from "eth-hooks";
@@ -11,7 +12,6 @@ import { usePoller } from "eth-hooks";
   />
 
 */
-
 
 export default function Balance(props) {
   const [dollarMode, setDollarMode] = useState(true);
@@ -56,6 +56,7 @@ export default function Balance(props) {
   }
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <span
       style={{
         verticalAlign: "middle",

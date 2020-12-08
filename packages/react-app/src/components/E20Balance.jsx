@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from "react";
 import { useTokenBalance } from "eth-hooks";
 
 /*
-  <Balance
+  <E20Balance
     contract = {erc20Address}
     address={account}
     provider={props.provider}
@@ -17,6 +18,7 @@ export default function E20Balance({ address, contract, provider }) {
   const balance = useTokenBalance(contract, address, provider);
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <span
       style={{
         verticalAlign: "middle",

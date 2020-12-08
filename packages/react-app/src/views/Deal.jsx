@@ -3,27 +3,12 @@ import { Descriptions, Select, Divider } from "antd";
 import { Address, Balance } from "../components";
 import { useEventListener, useCustomContractLoader } from "../hooks";
 
-export default function Deal({
-  address,
-  mainnetProvider,
-  userProvider,
-  localProvider,
-  yourLocalBalance,
-  price,
-  tx,
-  readContracts,
-  writeContracts,
-}) {
-  //Contract info loading
-  const poolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);
+export default function Deal({ mainnetProvider, userProvider, localProvider, price, readContracts }) {
+  // Contract info loading
   const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
   const { Option } = Select;
   const [selected, setSelected] = useState(0);
   const [dealer, setDealer] = useState(0);
-  const poolContractReader = useCustomContractLoader(localProvider, "HPool", selected);
-  const poolContractWriter = useCustomContractLoader(userProvider, "HPool", selected);
-  const dealerReader = useCustomContractLoader(localProvider, "HDealer", dealer);
-  const dealerWriter = useCustomContractLoader(userProvider, "HDealer", dealer);
   function onChange(value) {
     console.log("logging pool change");
     console.log(value);

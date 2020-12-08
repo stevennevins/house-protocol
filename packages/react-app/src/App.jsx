@@ -171,8 +171,6 @@ function App() {
               userProvider={userProvider}
               mainnetProvider={mainnetProvider}
               localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
-              price={price}
               tx={tx}
               writeContracts={writeContracts}
               readContracts={readContracts}
@@ -180,24 +178,18 @@ function App() {
           </Route>
           <Route exact path="/Deal">
             <Deal
-              address={address}
-              userProvider={userProvider}
               mainnetProvider={mainnetProvider}
               localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
               price={price}
               tx={tx}
-              writeContracts={writeContracts}
               readContracts={readContracts}
             />
           </Route>
           <Route exact path="/Earn">
             <Earn
               address={address}
-              userProvider={userProvider}
               mainnetProvider={mainnetProvider}
               localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
               price={price}
               tx={tx}
               writeContracts={writeContracts}
@@ -206,11 +198,6 @@ function App() {
           </Route>
 
           <Route exact path="/Factory">
-            {/*
-                🎛 this scaffolding is full of commonly used components
-                this <Contract/> component will automatically parse your ABI
-                and give you a form to interact with it locally
-            */}
             <Contract
               name="HPoolFactory"
               signer={userProvider.getSigner()}
@@ -229,10 +216,8 @@ function App() {
           <Route path="/LP">
             <Pool
               address={address}
-              userProvider={userProvider}
               mainnetProvider={mainnetProvider}
               localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
               price={price}
               tx={tx}
               writeContracts={writeContracts}
@@ -241,13 +226,8 @@ function App() {
           </Route>
           <Route path="/Game">
             <Game
-              address={address}
               userProvider={userProvider}
-              mainnetProvider={mainnetProvider}
               localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
-              price={price}
-              tx={tx}
               writeContracts={writeContracts}
               readContracts={readContracts}
             />
@@ -270,7 +250,6 @@ function App() {
         />
       </div>
 
-      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
       <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>

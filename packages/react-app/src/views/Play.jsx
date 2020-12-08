@@ -3,18 +3,8 @@ import { Row, Descriptions, Col, Button, Select, Divider, InputNumber, Slider } 
 import { E20Balance, Address, Roll } from "../components";
 import { useEventListener, useCustomContractLoader } from "../hooks";
 
-export default function Play({
-  address,
-  mainnetProvider,
-  userProvider,
-  localProvider,
-  yourLocalBalance,
-  price,
-  tx,
-  readContracts,
-  writeContracts,
-}) {
-  //Contract info loading
+export default function Play({ address, mainnetProvider, localProvider, tx, readContracts, writeContracts }) {
+  // Contract info loading
   const poolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);
   const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
   const { Option } = Select;
@@ -135,13 +125,10 @@ export default function Play({
         <Col span={4}>Bet Size</Col>
         <Col span={16}>
           <Roll
-            userProvider={userProvider}
-            localProvider={localProvider}
             tx={tx}
             edge={edge}
             chance={chance}
             poolAddress={pool}
-            erc20Address={erc}
             dealerAddress={dealer}
             writeContracts={writeContracts}
           />

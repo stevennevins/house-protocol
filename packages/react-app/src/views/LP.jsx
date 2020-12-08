@@ -3,7 +3,7 @@ import { List, Divider, Select } from "antd";
 import { Address, CustomContract } from "../components";
 import { useEventListener } from "../hooks";
 
-export default function Pool({ address, mainnetProvider, userProvider, localProvider, yourLocalBalance, price, tx, readContracts, writeContracts }) {
+export default function Pool({ mainnetProvider, userProvider, localProvider, readContracts }) {
 
   //📟 Listen for broadcast events
   const PoolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);

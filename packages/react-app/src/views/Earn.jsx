@@ -3,17 +3,7 @@ import { Row, Descriptions, Col, Button, Select, Divider, Input } from "antd";
 import { Address, Balance, E20Balance } from "../components";
 import { useEventListener, useCustomContractLoader } from "../hooks";
 
-export default function Earn({
-  address,
-  mainnetProvider,
-  userProvider,
-  localProvider,
-  yourLocalBalance,
-  price,
-  tx,
-  readContracts,
-  writeContracts,
-}) {
+export default function Earn({ address, mainnetProvider, localProvider, price, tx, readContracts, writeContracts }) {
   const poolMinted = useEventListener(readContracts, "HPoolFactory", "PoolMinted", localProvider, 1);
   const { Option } = Select;
   const [pool, setPool] = useState(0);

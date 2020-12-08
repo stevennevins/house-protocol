@@ -3,17 +3,7 @@ import { InputNumber, Row, Col, Button } from "antd";
 import Blockies from "react-blockies";
 import { SendOutlined } from "@ant-design/icons";
 
-export default function Roll({
-  userProvider,
-  localProvider,
-  tx,
-  edge,
-  chance,
-  poolAddress,
-  erc20Address,
-  dealerAddress,
-  writeContracts,
-}) {
+export default function Roll({ tx, edge, chance, poolAddress, dealerAddress, writeContracts }) {
   const [bet, setBet] = useState();
   let icon;
   if (poolAddress && typeof poolAddress.toLowerCase === "function") {

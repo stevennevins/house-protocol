@@ -3,7 +3,7 @@ import { List, Divider, Select } from "antd";
 import { Address, CustomContract } from "../components";
 import { useEventListener } from "../hooks";
 
-export default function Game({ address, mainnetProvider, userProvider, localProvider, yourLocalBalance, price, tx, readContracts, writeContracts }) {
+export default function Game({ userProvider, localProvider, readContracts, writeContracts }) {
   //📟 Listen for broadcast events
   const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
   console.log("📟 Dealer Minted:", dealerMinted)
