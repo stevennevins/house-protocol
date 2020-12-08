@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, List, Divider, Input, Card, DatePicker, Slider, Switch, Progress, Spin, Select } from "antd";
-import { SyncOutlined } from '@ant-design/icons';
-import { Address, AddressInput, Balance, CustomContract } from "../components";
-import { useContractReader, useEventListener, useResolveName, useCustomContractLoader } from "../hooks";
-import { parseEther, formatEther } from "@ethersproject/units";
+import React, { useState } from "react";
+import { List, Divider, Select } from "antd";
+import { Address, CustomContract } from "../components";
+import { useEventListener } from "../hooks";
 
 export default function Pool({ address, mainnetProvider, userProvider, localProvider, yourLocalBalance, price, tx, readContracts, writeContracts }) {
 

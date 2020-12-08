@@ -1,14 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, List, Divider, Input, Card, DatePicker, Slider, Switch, Progress, Spin, Select} from "antd";
-
+import React from "react";
 
 export default function Home() {
-
-
   return (
     <div>
-            		<p> HOME PAGE</p>
-
+      <p> HOME PAGE</p>
     </div>
   );
 }
