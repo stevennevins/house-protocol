@@ -215,12 +215,9 @@ function App() {
           </Route>
           <Route path="/LP">
             <Pool
-              address={address}
               mainnetProvider={mainnetProvider}
+              userProvider={userProvider}
               localProvider={localProvider}
-              price={price}
-              tx={tx}
-              writeContracts={writeContracts}
               readContracts={readContracts}
             />
           </Route>
