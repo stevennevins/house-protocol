@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Descriptions, Col, Button, Select, Divider, InputNumber, Slider } from "antd";
-import { E20Balance, Address, Roll } from "../components";
+import { E20Balance, Address, Roll, Ball } from "../components";
 import { useEventListener, useCustomContractLoader } from "../hooks";
 
 export default function Play({ address, mainnetProvider, localProvider, tx, readContracts, writeContracts }) {
@@ -134,6 +134,8 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
           />
         </Col>
       </Row>
+      <Divider />
+      <Ball />
       <Divider />
       <Button
         onClick={() => {

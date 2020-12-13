@@ -3,6 +3,7 @@
 import React from 'react';
 
 import Task from './Task';
+import Ball from './BouncingBall';
 
 export default {
   component: Task,

@@ -25,10 +25,10 @@ export default function Roll({ tx, edge, chance, poolAddress, dealerAddress, wri
       <Col>
         <Button
           onClick={() => {
-            console.log(bet);
-            console.log(JSON.stringify(edge));
-            console.log(poolAddress);
-            console.log(JSON.stringify((1 / (chance / 100)) * 1 * 10 ** 18));
+            // console.log(bet);
+            // console.log(JSON.stringify(edge));
+            // console.log(poolAddress);
+            // console.log(JSON.stringify((1 / (chance / 100)) * 1 * 10 ** 18));
             tx(
               writeContracts.HDealer.attach(dealerAddress).roll(
                 bet,

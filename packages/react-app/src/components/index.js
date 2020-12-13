@@ -16,3 +16,4 @@ export { default as Timeline } from "./Timeline";
 export { default as GasGauge } from "./GasGauge";
 export { default as Roll } from "./Roll";
 export { default as Task } from "./Task";
+export { default as Ball } from "./BouncingBall";
