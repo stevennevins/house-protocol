@@ -135,7 +135,9 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
         </Col>
       </Row>
       <Divider />
-      <Ball />
+      <Row>
+        <Ball />
+      </Row>
       <Divider />
       <Button
         onClick={() => {

@@ -45,25 +45,24 @@ export default function BouncingBall({ result = null, isHi = true, hi = 200 }) {
   function getCircleStyle(count = hi) {
     if (count > 100 && isHi) {
       return win;
-    } else if (count < 100 && !isHi) {
-      return win;
-    } else {
-      return loss;
     }
+    if (count < 100 && !isHi) {
+      return win;
+    }
+    return loss;
   }
 
   function getAnimate() {
     if (result === null) {
-      return ["100%", "0%"];
-    } else {
-      return "0%";
+      return ["-25%", "25%"];
     }
+    return "0%";
   }
   const bounceTransition = {
     y: {
       duration: 0.65,
       yoyo: Infinity,
-      ease: "easeOut",
+      ease: "easeIn",
     },
   };
   return (
