@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Row, Descriptions, Col, Button, Select, Divider, InputNumber, Slider } from "antd";
 import { E20Balance, Address, Roll, Ball } from "../components";
 import { useEventListener, useCustomContractLoader } from "../hooks";
+import { EthersContext } from "../context";
 
 export default function Play({ address, mainnetProvider, localProvider, tx, readContracts, writeContracts }) {
   // Contract info loading
@@ -14,7 +15,8 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
   const [edge, setEdge] = useState(0);
   const [dealer, setDealer] = useState(0);
   const e20Contract = useCustomContractLoader(localProvider, "IERC20", erc);
-
+  const context_value = useContext(EthersContext);
+  console.log('context value: ', context_value);
   function onChange(key, value) {
     console.log("logging pool change");
     console.log("erc20: ", value.value);

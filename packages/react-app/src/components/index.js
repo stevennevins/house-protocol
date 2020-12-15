@@ -1,3 +1,5 @@
+import { EthersContext } from "../context/Context";
+
 export { default as Account } from "./Account";
 export { default as Contract } from "./Contract";
 export { default as CustomContract } from "./CustomContract";
@@ -17,3 +19,5 @@ export { default as GasGauge } from "./GasGauge";
 export { default as Roll } from "./Roll";
 export { default as Task } from "./Task";
 export { default as Ball } from "./BouncingBall";
+export { default as EthersContextProvider } from 
+"./EthersContextProvider";
