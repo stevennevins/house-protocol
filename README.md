@@ -1,6 +1,6 @@
 ## Quickstart - Overview
 
-Demo: [Netlify App](https://quirky-lovelace-1f04d5.netlify.app/)
+Demo: [Netlify App](https://house-protocol.netlify.app/)
 
 House Protocol is a peer-to-pool protocol built on Ethereum and Chainlink.  House protocol has 3 types of participants: Players, Dealers (HDealer), and Bankroll Liquidity Providers (HPools & HTokens).  Players place bets in ERC20 tokens through an HDealer which commits the bet, routes the commitment to the appropriate HPool, and resolves the result of the reveal. The HDealer that routes the bet shares the House edge 50:50 with the HPool.  Interest accumulates in real-time as bets are placed and interest on deposited collateral is tracked via HTokens, which track the owner's share of the collateral in the HPool.
 
