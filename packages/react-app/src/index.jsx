@@ -13,10 +13,10 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  // <EthersContextProvider>
+  <EthersContextProvider>
     <ApolloProvider client={client}>
       <App />
-    </ApolloProvider>,
-  // </EthersContextProvider>,
+    </ApolloProvider>
+  </EthersContextProvider>,
   document.getElementById("root"),
 );
