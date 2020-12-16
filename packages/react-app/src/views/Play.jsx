@@ -69,8 +69,9 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
       </Select>
 
       <Divider />
-      <Row>
+      <Row style={{ alignItems: "center" }}>
         <Ball />
+        <div style={{fontSize: "3.33rem",}}>{"> 100"}</div>
       </Row>
       <Divider />
       <Row>
