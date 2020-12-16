@@ -47,7 +47,8 @@
     "react-qr-reader": "^2.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
-    "web3modal": "^1.9.1"
+    "web3modal": "^1.9.1",
+    "webpack": "^5.10.3"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.1.9",
