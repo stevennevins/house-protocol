@@ -53,7 +53,7 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
       <Select
         showSearch
         style={{ width: 200 }}
-        placeholder="pool a Liquidity Pool"
+        placeholder="Liquidity Pool"
         optionFilterProp="children"
         onChange={onChange}
         onFocus={onFocus}
