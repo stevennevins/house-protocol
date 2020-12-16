@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Row, Descriptions, Col, Button, Select, Divider, InputNumber, Slider } from "antd";
-import { E20Balance, Address, Roll, Ball } from "../components";
-import { useEventListener, useCustomContractLoader } from "../hooks";
+import { Roll, Ball } from "../components";
+import { useEventListener } from "../hooks";
 import { EthersContext } from "../context";
 
 export default function Play({ address, mainnetProvider, localProvider, tx, readContracts, writeContracts }) {
@@ -10,19 +10,19 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
   const dealerMinted = useEventListener(readContracts, "HDealerFactory", "DealerMinted", localProvider, 1);
   const { Option } = Select;
   const [pool, setPool] = useState(0);
-  const [erc, setERC] = useState(0);
+  // const [erc, setERC] = useState(0);
   const [chance, setChance] = useState(0);
   const [edge, setEdge] = useState(0);
-  const dealer = (dealerMinted[0] || {tokenAddress:''}).tokenAddress;
-  console.log('dealer:',dealer);
-  const e20Contract = useCustomContractLoader(localProvider, "IERC20", erc);
-  const context_value = useContext(EthersContext);
-  console.log('context value: ', context_value);
+  const dealer = (dealerMinted[0] || { tokenAddress: "" }).tokenAddress;
+  console.log("dealer:", dealer);
+  // const e20Contract = useCustomContractLoader(localProvider, "IERC20", erc);
+  const ethersContext = useContext(EthersContext);
+  console.log("context value: ", ethersContext);
   function onChange(key, value) {
     console.log("logging pool change");
     console.log("erc20: ", value.value);
     console.log("pool: ", value.key);
-    setERC(value.value);
+    // setERC(value.value);
     setPool(value.key);
   }
 
