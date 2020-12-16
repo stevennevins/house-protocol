@@ -13,7 +13,8 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
   const [erc, setERC] = useState(0);
   const [chance, setChance] = useState(0);
   const [edge, setEdge] = useState(0);
-  const [dealer, setDealer] = useState(0);
+  const dealer = (dealerMinted[0] || {tokenAddress:''}).tokenAddress;
+  console.log('dealer:',dealer);
   const e20Contract = useCustomContractLoader(localProvider, "IERC20", erc);
   const context_value = useContext(EthersContext);
   console.log('context value: ', context_value);
@@ -23,11 +24,6 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
     console.log("pool: ", value.key);
     setERC(value.value);
     setPool(value.key);
-  }
-  function dealOnChange(value) {
-    console.log("logging dealer change");
-    console.log(value);
-    setDealer(value);
   }
 
   function chanceOnChange(value) {
@@ -53,29 +49,6 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
   }
   return (
     <div style={{ border: "1px solid #CCCCCC", padding: 16, width: 400, margin: "auto", marginTop: 32 }}>
-      <Descriptions title="Choose your Dealer" />
-      <Select
-        showSearch
-        style={{ width: 200 }}
-        placeholder="Select your dealer"
-        optionFilterProp="children"
-        onChange={dealOnChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onSearch={onSearch}
-        filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-      >
-        {dealerMinted.map(item => (
-          <Option key={item[0]} value={item[0]}>
-            {item[0]}
-          </Option>
-        ))}
-      </Select>
-      <br />
-      <br />
-      <Address value={dealer} ensProvider={mainnetProvider} fontSize={16} />
-
-      <Divider />
       <Descriptions title="Select the Currency for Your Bet" />
       <Select
         showSearch
@@ -95,13 +68,10 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
         ))}
       </Select>
 
-      <br />
-      <br />
-
-      <E20Balance contract={e20Contract} address={address} provider={localProvider} />
-
-      <Address value={address} ensProvider={mainnetProvider} fontSize={16} />
-
+      <Divider />
+      <Row>
+        <Ball />
+      </Row>
       <Divider />
       <Row>
         <Col span={4}>Edge</Col>
@@ -135,10 +105,7 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
           />
         </Col>
       </Row>
-      <Divider />
-      <Row>
-        <Ball />
-      </Row>
+
       <Divider />
       <Button
         onClick={() => {
