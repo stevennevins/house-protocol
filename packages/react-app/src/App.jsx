@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import "antd/dist/antd.css";
 import { JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
-import "./App.css";
-import { Menu } from "antd";
+import { Menu, Layout } from "antd";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { useUserAddress } from "eth-hooks";
@@ -35,6 +34,7 @@ if (DEBUG) console.log("🏠 Connecting to provider:", localProviderUrlFromEnv);
 const localProvider = new JsonRpcProvider(localProviderUrlFromEnv);
 
 function App() {
+  const { Header, Content, Footer, Sider } = Layout;
   const [injectedProvider, setInjectedProvider] = useState();
   /* 💵 this hook will get the price of ETH from 🦄 Uniswap: */
   const price = useExchangePrice(mainnetProvider); // 1 for xdai
@@ -105,167 +105,188 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Menu selectedKeys={[route]} mode="horizontal">
-          <Menu.Item key="/Play">
-            <Link
-              onClick={() => {
-                setRoute("/Play");
-              }}
-              to="/Play"
-            >
-              Play
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/Deal">
-            <Link
-              onClick={() => {
-                setRoute("/Deal");
-              }}
-              to="/Deal"
-            >
-              Deal
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/Earn">
-            <Link
-              onClick={() => {
-                setRoute("/Earn");
-              }}
-              to="/Earn"
-            >
-              Earn
-            </Link>
-          </Menu.Item>
+      <Layout>
+        <BrowserRouter>
+          <Sider
+            theme="light"
+            breakpoint="lg"
+            collapsedWidth="0"
+            onBreakpoint={broken => {
+              console.log(broken);
+            }}
+            onCollapse={(collapsed, type) => {
+              console.log(collapsed, type);
+            }}
+          >
+            <div className="logo" />
+            <Menu mode="inline" selectedKeys={[route]}>
+              <Menu.Item key="/Play">
+                <Link
+                  onClick={() => {
+                    setRoute("/Play");
+                  }}
+                  to="/Play"
+                >
+                  Play
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/Deal">
+                <Link
+                  onClick={() => {
+                    setRoute("/Deal");
+                  }}
+                  to="/Deal"
+                >
+                  Deal
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/Earn">
+                <Link
+                  onClick={() => {
+                    setRoute("/Earn");
+                  }}
+                  to="/Earn"
+                >
+                  Earn
+                </Link>
+              </Menu.Item>
 
-          <Menu.SubMenu title="Testing-UI">
-            <Menu.Item key="/Factory">
-              <Link
-                onClick={() => {
-                  setRoute("/Factory");
-                }}
-                to="/Factory"
-              >
-                Factory Page
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/LP">
-              <Link
-                onClick={() => {
-                  setRoute("/LP");
-                }}
-                to="/LP"
-              >
-                LP Page
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="/Game">
-              <Link
-                onClick={() => {
-                  setRoute("/Game");
-                }}
-                to="/Game"
-              >
-                Game
-              </Link>
-            </Menu.Item>
-          </Menu.SubMenu>
-        </Menu>
-        <Switch>
-          <Route exact path="/">
-            <Play
-              address={address}
-              userProvider={userProvider}
-              mainnetProvider={mainnetProvider}
-              localProvider={localProvider}
-              yourLocalBalance={yourLocalBalance}
-              price={price}
-              tx={tx}
-              writeContracts={writeContracts}
-              readContracts={readContracts}
-            />
-          </Route>
-          <Route exact path="/Play">
-            <Play
-              address={address}
-              userProvider={userProvider}
-              mainnetProvider={mainnetProvider}
-              localProvider={localProvider}
-              tx={tx}
-              writeContracts={writeContracts}
-              readContracts={readContracts}
-            />
-          </Route>
-          <Route exact path="/Deal">
-            <Deal
-              mainnetProvider={mainnetProvider}
-              localProvider={localProvider}
-              price={price}
-              tx={tx}
-              readContracts={readContracts}
-            />
-          </Route>
-          <Route exact path="/Earn">
-            <Earn
-              address={address}
-              mainnetProvider={mainnetProvider}
-              localProvider={localProvider}
-              price={price}
-              tx={tx}
-              writeContracts={writeContracts}
-              readContracts={readContracts}
-            />
-          </Route>
+              <Menu.SubMenu title="Testing-UI">
+                <Menu.Item key="/Factory">
+                  <Link
+                    onClick={() => {
+                      setRoute("/Factory");
+                    }}
+                    to="/Factory"
+                  >
+                    Factory Page
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="/LP">
+                  <Link
+                    onClick={() => {
+                      setRoute("/LP");
+                    }}
+                    to="/LP"
+                  >
+                    LP Page
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="/Game">
+                  <Link
+                    onClick={() => {
+                      setRoute("/Game");
+                    }}
+                    to="/Game"
+                  >
+                    Game
+                  </Link>
+                </Menu.Item>
+              </Menu.SubMenu>
+            </Menu>
+          </Sider>
+          <Layout>
+            {/* <Header className="" style={{ background: "#fff", padding: 0 }} /> */}
+            <Content>
+              <div className="" style={{ padding: 24, minHeight: 360 }}>
+                <Switch>
+                  <Route exact path="/">
+                    <Play
+                      address={address}
+                      userProvider={userProvider}
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      yourLocalBalance={yourLocalBalance}
+                      price={price}
+                      tx={tx}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                    />
+                  </Route>
+                  <Route exact path="/Play">
+                    <Play
+                      address={address}
+                      userProvider={userProvider}
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      tx={tx}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                    />
+                  </Route>
+                  <Route exact path="/Deal">
+                    <Deal
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      price={price}
+                      tx={tx}
+                      readContracts={readContracts}
+                    />
+                  </Route>
+                  <Route exact path="/Earn">
+                    <Earn
+                      address={address}
+                      mainnetProvider={mainnetProvider}
+                      localProvider={localProvider}
+                      price={price}
+                      tx={tx}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                    />
+                  </Route>
 
-          <Route exact path="/Factory">
-            <Contract
-              name="HPoolFactory"
-              signer={userProvider.getSigner()}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-            />
-            <Contract
-              name="HDealerFactory"
-              signer={userProvider.getSigner()}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-            />
-          </Route>
-          <Route path="/LP">
-            <Pool
-              mainnetProvider={mainnetProvider}
-              userProvider={userProvider}
-              localProvider={localProvider}
-              readContracts={readContracts}
-            />
-          </Route>
-          <Route path="/Game">
-            <Game
-              userProvider={userProvider}
-              localProvider={localProvider}
-              writeContracts={writeContracts}
-              readContracts={readContracts}
-            />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 0 }}>
-        <Account
-          address={address}
-          localProvider={localProvider}
-          userProvider={userProvider}
-          mainnetProvider={mainnetProvider}
-          price={price}
-          web3Modal={web3Modal}
-          loadWeb3Modal={loadWeb3Modal}
-          logoutOfWeb3Modal={logoutOfWeb3Modal}
-          blockExplorer={blockExplorer}
-        />
-      </div>
+                  <Route exact path="/Factory">
+                    <Contract
+                      name="HPoolFactory"
+                      signer={userProvider.getSigner()}
+                      provider={localProvider}
+                      address={address}
+                      blockExplorer={blockExplorer}
+                    />
+                    <Contract
+                      name="HDealerFactory"
+                      signer={userProvider.getSigner()}
+                      provider={localProvider}
+                      address={address}
+                      blockExplorer={blockExplorer}
+                    />
+                  </Route>
+                  <Route path="/LP">
+                    <Pool
+                      mainnetProvider={mainnetProvider}
+                      userProvider={userProvider}
+                      localProvider={localProvider}
+                      readContracts={readContracts}
+                    />
+                  </Route>
+                  <Route path="/Game">
+                    <Game
+                      userProvider={userProvider}
+                      localProvider={localProvider}
+                      writeContracts={writeContracts}
+                      readContracts={readContracts}
+                    />
+                  </Route>
+                </Switch>
+              </div>
+              <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 0 }}>
+                <Account
+                  address={address}
+                  localProvider={localProvider}
+                  userProvider={userProvider}
+                  mainnetProvider={mainnetProvider}
+                  price={price}
+                  web3Modal={web3Modal}
+                  loadWeb3Modal={loadWeb3Modal}
+                  logoutOfWeb3Modal={logoutOfWeb3Modal}
+                  blockExplorer={blockExplorer}
+                />
+              </div>
+            </Content>
+            <Footer style={{ textAlign: "center" }}>Ant Design ©2018 Created by Ant UED</Footer>
+          </Layout>
+        </BrowserRouter>
+      </Layout>
     </div>
   );
 }

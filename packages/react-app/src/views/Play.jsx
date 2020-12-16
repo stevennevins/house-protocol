@@ -53,7 +53,6 @@ export default function Play({ address, mainnetProvider, localProvider, tx, read
   }
   return (
     <div style={{ border: "1px solid #CCCCCC", padding: 16, width: 400, margin: "auto", marginTop: 32 }}>
-      <Divider />
       <Descriptions title="Choose your Dealer" />
       <Select
         showSearch
