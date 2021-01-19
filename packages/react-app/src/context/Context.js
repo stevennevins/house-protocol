@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const EthersContext = createContext({ provider: 1 });
+const EthersContext = createContext();
 
 export { EthersContext };
