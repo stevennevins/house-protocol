@@ -14,7 +14,7 @@ async function main() {
   const deployDealer = await deploy("HDealerFactory");
  const deployPool = await deploy("HPool",['0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8','0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8','test','test',18]);
   const deployGame = await deploy("HDealer",['0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8','0x68b5F0f27246433aD39d2aFbD085b8b4cd75BEa8']);
-//  const ierc20 = await deploy("IERC20");
+ const ierc20 = await deploy("IERC20");
 //  const linkinterface = await deploy("LinkTokenInterface");
 }
 

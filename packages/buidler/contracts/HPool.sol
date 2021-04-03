@@ -27,7 +27,7 @@ contract HPool is HToken, HConst{
                 _underlying = token;
                 _symbol = symbol;
                 _name = name;
-                _decimals = decimals;
+                _decimals = _getUnderlyingDecimals(_underlying);
         }
 
         modifier _lock_() {
@@ -42,6 +42,14 @@ contract HPool is HToken, HConst{
                 _pullUnderlying(_underlying, msg.sender, amt);
                 _mintPoolShare(amt);
                 _pushPoolShare(msg.sender, amt);
+        }
+
+        function _getUnderlyingDecimals(address _underlying) public view returns (uint8 decimals) {
+                try IERC20(_underlying).decimals() returns (uint8 _decimals) {
+                return _decimals;
+                } catch {
+                return 18;
+                }
         }
         
         function tokenSwap(uint tokenIn, uint tokenBalance, uint hTokenSupply) internal pure returns (uint) {
